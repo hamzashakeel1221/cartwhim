@@ -18,12 +18,14 @@
   },
   "d1_databases": [
     {
+      // No database_id on purpose: the first `wrangler deploy` creates the "cartwhim" D1 database automatically
+      // and remembers it for later deploys.
       "binding": "DB",
       "database_name": "cartwhim",
-      // Replace with the id printed by: npx wrangler d1 create cartwhim
-      "database_id": "00000000-0000-0000-0000-000000000000",
       "migrations_dir": "migrations"
     }
   ],
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // Keep variables and secrets set in the Cloudflare dashboard (ADMIN_PASSWORD) on every deploy.
+  "keep_vars": true
 }

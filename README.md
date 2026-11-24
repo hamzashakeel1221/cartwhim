@@ -39,25 +39,20 @@ npm run preview                  # runs the real Cloudflare build locally
 
 Each product has a `supplier` (id from `suppliers.ts`), an optional `supplierSku` (the supplier's product code) and an optional `cost` (what the supplier charges you). These are never shown to shoppers. Real photos go in `public/products/` and are listed in the product's `images` array; until then a branded placeholder is shown.
 
-## Deploy to Cloudflare (first time)
+## Deploy to Cloudflare
 
-You need a free Cloudflare account.
+Same setup as LaunchWright: Cloudflare builds and deploys straight from GitHub on every push to `main`.
 
-1. Log in: `npx wrangler login`
-2. Create the database: `npx wrangler d1 create cartwhim`. Copy the `database_id` it prints into `wrangler.jsonc` (replace the zeros) and commit.
-3. Create the tables: `npm run db:migrate:remote` (run it again whenever a new file appears in `migrations/`)
-4. Set the admin password: `npx wrangler secret put ADMIN_PASSWORD`
-5. Deploy: `npm run deploy`. The site goes live at `https://cartwhim.<your-subdomain>.workers.dev`.
-6. Custom domain: in the Cloudflare dashboard open **Workers & Pages → cartwhim → Settings → Domains & Routes** and add `cartwhim.pk` / `www.cartwhim.pk`. The domain's DNS must be on Cloudflare (point the domain's nameservers to Cloudflare at your registrar).
+1. In the [Cloudflare dashboard](https://dash.cloudflare.com) open **Workers & Pages → Create → Import a repository** and pick `cartwhim`.
+2. Project name: `cartwhim` (must match `name` in `wrangler.jsonc`).
+3. Build command: `npm run cf-build`
+4. Deploy command: `npm run cf-deploy`
+   (deploys the Worker, creates the `cartwhim` D1 database automatically on the first deploy, then applies any new files in `migrations/`)
+5. Click **Deploy**. The site goes live at `https://cartwhim.<your-subdomain>.workers.dev`.
+6. After the first deploy, open the Worker's **Settings → Variables and secrets**, add a secret `ADMIN_PASSWORD`, and redeploy. It is kept on later deploys.
+7. When you buy the domain, add `cartwhim.pk` and `www.cartwhim.pk` under **Settings → Domains & Routes** (the domain's nameservers must point to Cloudflare).
 
-### Auto deploy on every push (optional)
-
-In the dashboard, open **Workers & Pages → cartwhim → Settings → Build**, connect the GitHub repo `cartwhim`, and set:
-
-- Build command: `npx opennextjs-cloudflare build`
-- Deploy command: `npx opennextjs-cloudflare deploy`
-
-Whenever you add a new file in `migrations/`, run `npm run db:migrate:remote` once.
+Deploying from your own computer instead: `npx wrangler login`, then `npm run deploy`.
 
 ## Admin
 

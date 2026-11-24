@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy": "opennextjs-cloudflare build && npm run cf-deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "db:migrate:local": "wrangler d1 migrations apply cartwhim --local",
-    "db:migrate:remote": "wrangler d1 migrations apply cartwhim --remote"
+    "db:migrate:remote": "wrangler d1 migrations apply cartwhim --remote",
+    "cf-build": "opennextjs-cloudflare build",
+    "cf-deploy": "opennextjs-cloudflare deploy && wrangler d1 migrations apply cartwhim --remote"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.18",
