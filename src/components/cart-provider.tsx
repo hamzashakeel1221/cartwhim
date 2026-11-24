@@ -14,7 +14,9 @@ type CartState = {
   shipping: number;
   total: number;
   ready: boolean;
-  add: (slug: string, qty?: number) => void;
+  add: (slug: string, qty?: number, opts?: { openDrawer?: boolean }) => void;
+  drawerOpen: boolean;
+  setDrawerOpen: (open: boolean) => void;
   setQty: (slug: string, qty: number) => void;
   remove: (slug: string) => void;
   clear: () => void;
@@ -28,6 +30,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [raw, setRaw] = useState<CartLine[]>([]);
   const [ready, setReady] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -48,7 +51,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return () => clearTimeout(t);
   }, [toast]);
 
-  const add = useCallback((slug: string, qty = 1) => {
+  const add = useCallback((slug: string, qty = 1, opts?: { openDrawer?: boolean }) => {
     const p = getProduct(slug);
     if (!p) return;
     setRaw((prev) => {
@@ -56,7 +59,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (existing) return prev.map((l) => (l.slug === slug ? { ...l, qty: Math.min(l.qty + qty, p.stock) } : l));
       return [...prev, { slug, qty: Math.min(qty, p.stock) }];
     });
-    setToast(`${p.name} added to cart`);
+    if (opts?.openDrawer) setDrawerOpen(true);
+    else setToast(`${p.name} added to cart`);
   }, []);
 
   const setQty = useCallback((slug: string, qty: number) => {
@@ -78,9 +82,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return {
       lines, subtotal, shipping, total: subtotal + shipping, ready, toast,
       count: lines.reduce((s, l) => s + l.qty, 0),
-      add, setQty, remove, clear,
+      add, setQty, remove, clear, drawerOpen, setDrawerOpen,
     };
-  }, [raw, ready, toast, add, setQty, remove, clear]);
+  }, [raw, ready, toast, add, setQty, remove, clear, drawerOpen]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

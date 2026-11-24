@@ -17,6 +17,8 @@ body {
   color: var(--color-ink);
 }
 
+/* Component classes live in a layer so Tailwind utilities (p-0, px-7...) can override them. */
+@layer components {
 .container-x {
   margin-inline: auto;
   width: 100%;
@@ -56,5 +58,45 @@ body {
 }
 .input:focus { border-color: var(--color-brand-500); box-shadow: 0 0 0 3px rgb(242 98 46 / 0.15); }
 
+}
+
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+.snap-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 44%;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  padding-inline: 1rem;
+  margin-inline: -1rem;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+.snap-row::-webkit-scrollbar { display: none; }
+.snap-row > * { scroll-snap-align: start; }
+@media (min-width: 640px) {
+  .snap-row { grid-auto-columns: 30%; margin-inline: -1.5rem; padding-inline: 1.5rem; scroll-padding-inline: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .snap-row { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; overflow: visible; margin: 0; padding: 0; }
+}
+
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+::selection { background: var(--color-brand-200); }
+:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; border-radius: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

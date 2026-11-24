@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Banknote, Loader2, Lock, Smartphone } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Banknote, Loader2, Lock, Smartphone, UserRound } from "lucide-react";
 import { useCart } from "@/components/cart-provider";
 import { ProductArt } from "@/components/product-art";
 import { Summary } from "@/components/summary";
@@ -11,6 +11,7 @@ import { formatPKR } from "@/lib/format";
 import { pakistanCities } from "@/lib/store-config";
 
 type Errors = Partial<Record<string, string[]>>;
+type Me = { name: string; email: string; phone: string; city: string | null; address: string | null } | null;
 
 export default function CheckoutPage() {
   const { lines, subtotal, shipping, total, clear, ready } = useCart();
@@ -18,6 +19,11 @@ export default function CheckoutPage() {
   const [errors, setErrors] = useState<Errors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [me, setMe] = useState<Me | undefined>(undefined);
+
+  useEffect(() => {
+    fetch("/api/me").then((r) => r.json() as Promise<{ customer: Me }>).then((d) => setMe(d.customer)).catch(() => setMe(null));
+  }, []);
 
   if (!ready) return <div className="container-x py-24" />;
   if (!lines.length) {
@@ -60,29 +66,37 @@ export default function CheckoutPage() {
   return (
     <div className="container-x pt-8">
       <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Checkout</h1>
-      <form onSubmit={onSubmit} noValidate className="mt-8 grid gap-8 lg:grid-cols-[1fr_400px]">
+      <form key={me ? "me" : "guest"} onSubmit={onSubmit} noValidate className="mt-6 grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-8">
         <div className="space-y-6">
+          {me === null && (
+            <div className="flex items-center gap-3 rounded-2xl bg-white p-4 text-sm ring-1 ring-stone-200/70">
+              <UserRound className="h-5 w-5 shrink-0 text-brand-600" />
+              <p className="flex-1">Have an account? Log in to fill your details automatically and track orders.</p>
+              <Link href="/account/login?next=/checkout" className="shrink-0 font-semibold text-brand-600">Log in</Link>
+            </div>
+          )}
+          {me && <p className="rounded-2xl bg-emerald-50 p-4 text-sm text-emerald-800">Logged in as <b>{me.name}</b>. We filled in your saved details.</p>}
           <section className="rounded-3xl bg-white p-6 ring-1 ring-stone-200/70">
             <h2 className="text-lg font-bold">Delivery details</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <label className="block sm:col-span-2">
                 <span className="text-sm font-medium">Full name</span>
-                <input name="name" autoComplete="name" className="input mt-1.5" placeholder="Ali Raza" />
+                <input name="name" defaultValue={me?.name} autoComplete="name" className="input mt-1.5" placeholder="Ali Raza" />
                 {err("name")}
               </label>
               <label className="block">
                 <span className="text-sm font-medium">Mobile number</span>
-                <input name="phone" type="tel" inputMode="tel" autoComplete="tel" className="input mt-1.5" placeholder="0300 1234567" />
+                <input name="phone" defaultValue={me?.phone} type="tel" inputMode="tel" autoComplete="tel" className="input mt-1.5" placeholder="0300 1234567" />
                 {err("phone")}
               </label>
               <label className="block">
                 <span className="text-sm font-medium">Email <span className="text-stone-400">(optional)</span></span>
-                <input name="email" type="email" autoComplete="email" className="input mt-1.5" placeholder="you@example.com" />
+                <input name="email" defaultValue={me?.email} type="email" autoComplete="email" className="input mt-1.5" placeholder="you@example.com" />
                 {err("email")}
               </label>
               <label className="block sm:col-span-2">
                 <span className="text-sm font-medium">City</span>
-                <select name="city" defaultValue="" className="input mt-1.5">
+                <select name="city" defaultValue={me?.city ?? ""} className="input mt-1.5">
                   <option value="" disabled>Select your city</option>
                   {pakistanCities.map((c) => <option key={c}>{c}</option>)}
                 </select>
@@ -90,7 +104,7 @@ export default function CheckoutPage() {
               </label>
               <label className="block sm:col-span-2">
                 <span className="text-sm font-medium">Full address</span>
-                <textarea name="address" rows={3} autoComplete="street-address" className="input mt-1.5" placeholder="House #, street, block / area, nearby landmark" />
+                <textarea name="address" defaultValue={me?.address ?? ""} rows={3} autoComplete="street-address" className="input mt-1.5" placeholder="House #, street, block / area, nearby landmark" />
                 {err("address")}
               </label>
               <label className="block sm:col-span-2">

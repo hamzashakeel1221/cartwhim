@@ -2,7 +2,8 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export function SortSelect() {
+// On a category page the sort jumps to /products with that category kept (sorted views are not indexed).
+export function SortSelect({ basePath, preset }: { basePath?: string; preset?: Record<string, string> }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -13,12 +14,14 @@ export function SortSelect() {
       value={params.get("sort") ?? "featured"}
       onChange={(e) => {
         const next = new URLSearchParams(params);
+        for (const [k, v] of Object.entries(preset ?? {})) next.set(k, v);
         if (e.target.value === "featured") next.delete("sort"); else next.set("sort", e.target.value);
-        router.push(`${pathname}?${next.toString()}`);
+        router.push(`${basePath ?? pathname}?${next.toString()}`);
       }}
     >
       <option value="featured">Featured</option>
       <option value="popular">Most popular</option>
+      <option value="new">Newest</option>
       <option value="price-asc">Price: low to high</option>
       <option value="price-desc">Price: high to low</option>
       <option value="discount">Biggest discount</option>

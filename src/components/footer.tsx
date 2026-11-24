@@ -5,7 +5,7 @@ import { Logo } from "./logo";
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-ink text-stone-300">
+    <footer className="mt-20 bg-ink pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-stone-300 lg:pb-0">
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Logo light />
@@ -17,7 +17,7 @@ export function Footer() {
           <h3 className="font-semibold text-white">Shop</h3>
           <ul className="mt-4 space-y-2 text-sm">
             {categories.map((c) => (
-              <li key={c.slug}><Link href={`/products?category=${c.slug}`} className="hover:text-white">{c.name}</Link></li>
+              <li key={c.slug}><Link href={`/category/${c.slug}`} className="hover:text-white">{c.name}</Link></li>
             ))}
           </ul>
         </div>

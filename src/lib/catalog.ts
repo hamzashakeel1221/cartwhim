@@ -8,6 +8,8 @@ export type Category = {
   blurb: string;
   icon: string; // lucide icon name, see components/icon.tsx
   hue: string; // tailwind gradient classes for placeholder art
+  intro: string; // SEO text shown on the category page
+  keywords: string[];
 };
 
 export type Product = {
@@ -30,12 +32,30 @@ export type Product = {
 };
 
 export const categories: Category[] = [
-  { slug: "electronics", name: "Gadgets & Electronics", blurb: "Earbuds, smartwatches, chargers", icon: "headphones", hue: "from-sky-100 to-indigo-200" },
-  { slug: "home-kitchen", name: "Home & Kitchen", blurb: "Smart tools for every ghar", icon: "chef-hat", hue: "from-amber-100 to-orange-200" },
-  { slug: "fashion", name: "Fashion & Accessories", blurb: "Bags, watches, wallets", icon: "shopping-bag", hue: "from-rose-100 to-pink-200" },
-  { slug: "beauty", name: "Beauty & Personal Care", blurb: "Grooming and skincare", icon: "sparkles", hue: "from-fuchsia-100 to-purple-200" },
-  { slug: "kids-toys", name: "Kids & Toys", blurb: "Fun that keeps them busy", icon: "baby", hue: "from-lime-100 to-emerald-200" },
-  { slug: "health-fitness", name: "Health & Fitness", blurb: "Stay active at home", icon: "dumbbell", hue: "from-teal-100 to-cyan-200" },
+  { slug: "electronics", name: "Gadgets & Electronics", blurb: "Earbuds, smartwatches, chargers", icon: "headphones", hue: "from-sky-100 to-indigo-200",
+    intro: "Shop wireless earbuds, smart watches, power banks and emergency lights at the best prices in Pakistan. Every gadget is checked before dispatch and comes with Cash on Delivery and 7 day easy returns.",
+    keywords: ["wireless earbuds price in Pakistan","smart watch Pakistan","power bank 20000mAh","emergency light"],
+  },
+  { slug: "home-kitchen", name: "Home & Kitchen", blurb: "Smart tools for every ghar", icon: "chef-hat", hue: "from-amber-100 to-orange-200",
+    intro: "Make everyday cooking and cleaning easier with air fryers, vegetable choppers, spin mops and more. Order online with Cash on Delivery anywhere in Pakistan.",
+    keywords: ["air fryer price in Pakistan","electric chopper","spin mop","kitchen gadgets online"],
+  },
+  { slug: "fashion", name: "Fashion & Accessories", blurb: "Bags, watches, wallets", icon: "shopping-bag", hue: "from-rose-100 to-pink-200",
+    intro: "Wallets, handbags and watches for men and women at prices that make sense. Fast delivery to Karachi, Lahore, Islamabad and 50+ cities with Cash on Delivery.",
+    keywords: ["ladies handbags online Pakistan","leather wallet for men","watches for men Pakistan"],
+  },
+  { slug: "beauty", name: "Beauty & Personal Care", blurb: "Grooming and skincare", icon: "sparkles", hue: "from-fuchsia-100 to-purple-200",
+    intro: "Hair straighteners, trimmers and grooming tools for him and her. Quality checked, delivered to your door, pay when it arrives.",
+    keywords: ["hair straightener brush Pakistan","trimmer for men price in Pakistan","beauty tools online"],
+  },
+  { slug: "kids-toys", name: "Kids & Toys", blurb: "Fun that keeps them busy", icon: "baby", hue: "from-lime-100 to-emerald-200",
+    intro: "Learning tablets, RC cars and toys that keep kids busy without screens. Safe, tested and delivered nationwide with Cash on Delivery.",
+    keywords: ["kids toys online Pakistan","LCD writing tablet","remote control car price in Pakistan"],
+  },
+  { slug: "health-fitness", name: "Health & Fitness", blurb: "Stay active at home", icon: "dumbbell", hue: "from-teal-100 to-cyan-200",
+    intro: "Stay fit at home with resistance bands, motivational water bottles and more. Affordable fitness gear delivered all over Pakistan.",
+    keywords: ["resistance bands Pakistan","water bottle 2 litre","home workout equipment"],
+  },
 ];
 
 export const products: Product[] = [
@@ -195,6 +215,46 @@ export const products: Product[] = [
     description: "Five resistance levels for a full body workout at home. Includes door anchor and carry bag.",
     highlights: ["5 resistance levels", "Door anchor and handles", "Ankle straps", "Carry bag included"],
   },
+  {
+    slug: "portable-neck-fan",
+    name: "Portable Bladeless Neck Fan",
+    category: "electronics",
+    supplier: "oshi",
+    price: 2199, compareAt: 3299, rating: 4.4, reviews: 266, stock: 60, icon: "fan",
+    description: "Hands free cooling wherever you go. Bladeless design is safe for hair, with 3 speeds and up to 8 hours on a charge.",
+    highlights: ["Bladeless and hair safe", "3 wind speeds", "Up to 8 hours battery", "USB-C charging"],
+    tags: ["new", "deal"],
+  },
+  {
+    slug: "magnetic-car-phone-holder",
+    name: "Magnetic Car Phone Holder",
+    category: "electronics",
+    supplier: "hhc",
+    price: 899, compareAt: 1499, rating: 4.5, reviews: 721, stock: 140, icon: "smartphone",
+    description: "Strong magnetic mount that holds your phone steady on bumpy roads. Fits all dashboard air vents.",
+    highlights: ["Strong N52 magnets", "360° rotation", "Fits all phones", "Metal plates included"],
+    tags: ["deal"],
+  },
+  {
+    slug: "electric-lunch-box",
+    name: "Electric Heating Lunch Box",
+    category: "home-kitchen",
+    supplier: "hhc",
+    price: 2699, compareAt: 3999, rating: 4.6, reviews: 388, stock: 45, icon: "utensils",
+    description: "Hot ghar ka khana at office or school. Plug in and your food is warm in 30 minutes. Stainless steel inner box.",
+    highlights: ["Warms food in 30 min", "Stainless steel inner", "Leak proof", "Car and wall charger"],
+    tags: ["trending"],
+  },
+  {
+    slug: "polarized-sunglasses",
+    name: "Polarized Sunglasses UV400",
+    category: "fashion",
+    supplier: "oshi",
+    price: 1199, compareAt: 1999, rating: 4.3, reviews: 194, stock: 85, icon: "glasses",
+    description: "Lightweight polarized sunglasses that cut glare and block 100% of UV rays. Comes with a hard case.",
+    highlights: ["Polarized lenses", "UV400 protection", "Lightweight frame", "Hard case included"],
+    tags: ["new"],
+  },
 ];
 
 export function getProduct(slug: string) {
@@ -207,4 +267,13 @@ export function getCategory(slug: string) {
 
 export function categoryHue(slug: string) {
   return getCategory(slug)?.hue ?? "from-zinc-100 to-zinc-200";
+}
+
+export function productsIn(categorySlug: string) {
+  return products.filter((p) => p.category === categorySlug);
+}
+
+// Public product code shown to shoppers and used in structured data.
+export function productSku(p: Product) {
+  return "CW-" + p.slug.split("-").map((w) => w[0]).join("").toUpperCase().slice(0, 6) + String(p.price).slice(-3);
 }

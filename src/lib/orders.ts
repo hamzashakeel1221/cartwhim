@@ -1,4 +1,4 @@
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { db, last10 } from "./db";
 
 // Orders live in Cloudflare D1 (binding "DB" in wrangler.jsonc).
 // Schema: migrations/0001_orders.sql
@@ -13,6 +13,7 @@ export type Order = {
   status: OrderStatus;
   customer: { name: string; phone: string; email?: string; city: string; address: string; notes?: string };
   payment: "cod";
+  customerId?: string;
   items: OrderItem[];
   subtotal: number;
   shipping: number;
@@ -25,12 +26,6 @@ type OrderRow = {
 };
 type ItemRow = { order_id: string; slug: string; name: string; price: number; qty: number; supplier: string; supplier_sku: string | null };
 
-async function db(): Promise<D1Database> {
-  const { env } = await getCloudflareContext({ async: true });
-  return env.DB;
-}
-
-const last10 = (phone: string) => phone.replace(/\D/g, "").slice(-10);
 
 function toOrder(row: OrderRow, items: ItemRow[]): Order {
   return {
@@ -54,9 +49,9 @@ export async function saveOrder(order: Order) {
   const c = order.customer;
   await d.batch([
     d.prepare(
-      `INSERT INTO orders (id, created_at, status, customer_name, phone, phone_last10, email, city, address, notes, payment, subtotal, shipping, total)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    ).bind(order.id, order.createdAt, order.status, c.name, c.phone, last10(c.phone), c.email ?? null, c.city, c.address, c.notes ?? null, order.payment, order.subtotal, order.shipping, order.total),
+      `INSERT INTO orders (id, created_at, status, customer_name, phone, phone_last10, email, city, address, notes, payment, subtotal, shipping, total, customer_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ).bind(order.id, order.createdAt, order.status, c.name, c.phone, last10(c.phone), c.email ?? null, c.city, c.address, c.notes ?? null, order.payment, order.subtotal, order.shipping, order.total, order.customerId ?? null),
     ...order.items.map((i) =>
       d.prepare(`INSERT INTO order_items (order_id, slug, name, price, qty, supplier, supplier_sku) VALUES (?, ?, ?, ?, ?, ?, ?)`)
         .bind(order.id, i.slug, i.name, i.price, i.qty, i.supplier, i.supplierSku ?? null),
@@ -64,9 +59,12 @@ export async function saveOrder(order: Order) {
   ]);
 }
 
-export async function listOrders(limit = 200): Promise<Order[]> {
+export async function listOrders(limit = 200, customerId?: string): Promise<Order[]> {
   const d = await db();
-  const { results: rows } = await d.prepare(`SELECT * FROM orders ORDER BY created_at DESC LIMIT ?`).bind(limit).all<OrderRow>();
+  const stmt = customerId
+    ? d.prepare(`SELECT * FROM orders WHERE customer_id = ? ORDER BY created_at DESC LIMIT ?`).bind(customerId, limit)
+    : d.prepare(`SELECT * FROM orders ORDER BY created_at DESC LIMIT ?`).bind(limit);
+  const { results: rows } = await stmt.all<OrderRow>();
   if (!rows.length) return [];
   const ids = rows.map((r) => r.id);
   const { results: items } = await d
