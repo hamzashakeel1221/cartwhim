@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CartWhim
 
-## Getting Started
+Online store for Pakistan, built with Next.js 15 (App Router), TypeScript and Tailwind CSS v4.
 
-First, run the development server:
+## What's included
+
+- Home page with hero, categories, trending and deals
+- Catalog with search, category filter and sorting
+- Product pages with discount, stock, Buy now and "Order on WhatsApp"
+- Cart saved in the browser, free delivery progress bar
+- Checkout with Cash on Delivery, Pakistani mobile number validation and city list
+- Order confirmation and order tracking by order number + phone
+- Admin orders page at `/admin/orders` (password protected) that splits every order by supplier
+- Multiple dropshipping suppliers (HHC Dropshipping, Oshi Dropshipping, add more in `src/lib/suppliers.ts`)
+- SEO: page titles, Open Graph, Product structured data with PKR prices
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then set ADMIN_PASSWORD
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where to change things
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | File |
+|---|---|
+| Store name, WhatsApp number, delivery fee, free delivery limit | `src/lib/store-config.ts` |
+| Products and categories | `src/lib/catalog.ts` |
+| Suppliers | `src/lib/suppliers.ts` |
+| Brand colours and fonts | `src/app/globals.css`, `src/app/layout.tsx` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Each product has a `supplier` (id from `suppliers.ts`), an optional `supplierSku` (the supplier's product code) and an optional `cost` (what the supplier charges you). These are never shown to shoppers. Real photos go in `public/products/` and are listed in the product's `images` array; until then a branded placeholder is shown.
 
-## Learn More
+## Before going live
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Orders are saved to `.data/orders.json`. That is fine on a VPS but not on Vercel/serverless, where the disk is wiped. Move orders to a database (Postgres via Neon or Supabase) before launching there.
+- Put your real WhatsApp Business number and support email in `store-config.ts`.
+- JazzCash / Easypaisa / card payments are shown as "coming soon".

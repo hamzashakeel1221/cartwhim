@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-brand-50: #fff4ef;
+  --color-brand-100: #ffe4d6;
+  --color-brand-200: #ffc4a8;
+  --color-brand-500: #f2622e;
+  --color-brand-600: #dc4d1b;
+  --color-brand-700: #b73c12;
+  --color-ink: #1c1a2e;
+  --color-mint: #12b886;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #fafaf9;
+  color: var(--color-ink);
 }
+
+.container-x {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .container-x { padding-inline: 1.5rem; }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background-color 150ms, transform 150ms, box-shadow 150ms;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--color-brand-500); color: white; box-shadow: 0 6px 20px -8px rgb(242 98 46 / 0.7); }
+.btn-primary:hover { background: var(--color-brand-600); }
+.btn-dark { background: var(--color-ink); color: white; }
+.btn-dark:hover { background: #2d2a45; }
+.btn-ghost { background: white; color: var(--color-ink); border: 1px solid #e7e5e4; }
+.btn-ghost:hover { border-color: #a8a29e; }
+
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #e7e5e4;
+  background: white;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.input:focus { border-color: var(--color-brand-500); box-shadow: 0 0 0 3px rgb(242 98 46 / 0.15); }
+
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
