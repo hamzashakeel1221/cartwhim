@@ -40,7 +40,7 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...f, items: lines.map((l) => ({ slug: l.slug, qty: l.qty })) }),
       });
-      const data = await res.json();
+      const data = (await res.json()) as { id?: string; total?: number; error?: string; fields?: Errors };
       if (!res.ok) {
         setErrors(data.fields ?? {});
         setFormError(data.error ?? "Something went wrong.");
