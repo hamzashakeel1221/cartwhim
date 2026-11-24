@@ -48,7 +48,7 @@ export function Hero3D({ className = "", compact, fallback }: { className?: stri
   }, [enabled]);
 
   return (
-    <div ref={box} className={`relative ${className}`}>
+    <div ref={box} className={`relative min-w-0 overflow-hidden ${className}`}>
       {(!enabled || !shown) && fallback}
       {enabled && (
         <div className={`absolute inset-0 transition-opacity duration-700 ${shown ? "opacity-100" : "opacity-0"}`}>
