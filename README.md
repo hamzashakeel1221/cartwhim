@@ -45,7 +45,7 @@ Same setup as LaunchWright: Cloudflare builds and deploys straight from GitHub o
 
 1. In the [Cloudflare dashboard](https://dash.cloudflare.com) open **Workers & Pages → Create → Import a repository** and pick `cartwhim`.
 2. Project name: `cartwhim` (must match `name` in `wrangler.jsonc`).
-3. Build command: `npm run cf-build`
+3. Build command: `npm run build` (the default is fine)
 4. Deploy command: `npm run cf-deploy`
    (deploys the Worker, creates the `cartwhim` D1 database automatically on the first deploy, then applies any new files in `migrations/`)
 5. Click **Deploy**. The site goes live at `https://cartwhim.<your-subdomain>.workers.dev`.
