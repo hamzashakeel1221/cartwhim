@@ -1,12 +1,12 @@
 import {
   Baby, BatteryCharging, Car, ChefHat, CookingPot, Dumbbell, GlassWater, Headphones, Lamp,
-  Package, Pencil, Scissors, ShoppingBag, Sparkles, SprayCan, Wallet, Watch, type LucideIcon,
+  Fan, Glasses, Package, Pencil, Smartphone, Utensils, Scissors, ShoppingBag, Sparkles, SprayCan, Wallet, Watch, type LucideIcon,
 } from "lucide-react";
 
 const map: Record<string, LucideIcon> = {
   baby: Baby, "battery-charging": BatteryCharging, car: Car, "chef-hat": ChefHat,
   "cooking-pot": CookingPot, dumbbell: Dumbbell, "glass-water": GlassWater, headphones: Headphones,
-  lamp: Lamp, pencil: Pencil, scissors: Scissors, "shopping-bag": ShoppingBag, sparkles: Sparkles,
+  lamp: Lamp, fan: Fan, glasses: Glasses, smartphone: Smartphone, utensils: Utensils, pencil: Pencil, scissors: Scissors, "shopping-bag": ShoppingBag, sparkles: Sparkles,
   "spray-can": SprayCan, wallet: Wallet, watch: Watch,
 };
 

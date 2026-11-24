@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { getCustomer } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { getProduct } from "@/lib/catalog";
 import { newOrderId, saveOrder, type Order } from "@/lib/orders";
 import { shippingFor } from "@/lib/store-config";
@@ -19,6 +21,7 @@ export async function POST(req: Request) {
     if (!p) return NextResponse.json({ error: "A product in your cart is no longer available." }, { status: 400 });
     items.push({ slug: p.slug, name: p.name, price: p.price, qty: Math.min(line.qty, p.stock), supplier: p.supplier, supplierSku: p.supplierSku });
   }
+  const customer = await getCustomer();
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
   const shipping = shippingFor(subtotal);
 
@@ -28,6 +31,7 @@ export async function POST(req: Request) {
     status: "placed",
     customer: { name: data.name, phone: data.phone, email: data.email || undefined, city: data.city, address: data.address, notes: data.notes || undefined },
     payment: "cod",
+    customerId: customer?.id,
     items, subtotal, shipping, total: subtotal + shipping,
   };
 
@@ -36,6 +40,11 @@ export async function POST(req: Request) {
   } catch (e) {
     console.error("Failed to save order", e);
     return NextResponse.json({ error: "We could not place your order right now. Please try again or order on WhatsApp." }, { status: 500 });
+  }
+
+  // Remember the address for next time if the customer hasn't saved one yet.
+  if (customer && !customer.address) {
+    await (await db()).prepare(`UPDATE customers SET city = ?, address = ? WHERE id = ?`).bind(data.city, data.address, customer.id).run().catch(() => {});
   }
 
   return NextResponse.json({ id: order.id, total: order.total });

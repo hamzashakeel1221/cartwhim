@@ -18,3 +18,24 @@ export const checkoutSchema = z.object({
 });
 
 export type CheckoutInput = z.input<typeof checkoutSchema>;
+
+const password = z.string().min(8, "Use at least 8 characters").max(100);
+
+export const registerSchema = z.object({
+  name: z.string().trim().min(3, "Please enter your full name").max(80),
+  email: z.string().trim().toLowerCase().email("Enter a valid email"),
+  phone: pkPhone,
+  password,
+});
+
+export const loginSchema = z.object({
+  login: z.string().trim().min(3, "Enter your email or mobile number"),
+  password: z.string().min(1, "Enter your password"),
+});
+
+export const profileSchema = z.object({
+  name: z.string().trim().min(3, "Please enter your full name").max(80),
+  phone: pkPhone,
+  city: z.string().trim().max(60).optional().or(z.literal("")),
+  address: z.string().trim().max(300).optional().or(z.literal("")),
+});

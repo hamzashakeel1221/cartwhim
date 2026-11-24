@@ -13,7 +13,7 @@ export function ProductArt({ product, size = "md", priority }: { product: Produc
     );
   }
   return (
-    <div className={`relative grid aspect-square place-items-center overflow-hidden rounded-2xl bg-gradient-to-br ${categoryHue(product.category)}`}>
+    <div className={`relative grid place-items-center overflow-hidden rounded-2xl bg-gradient-to-br ${size === "lg" ? "aspect-[5/4] sm:aspect-square" : "aspect-square"} ${categoryHue(product.category)}`}>
       <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/40" />
       <div className="absolute -bottom-10 -left-6 h-28 w-28 rounded-full bg-white/30" />
       <Icon name={product.icon} className={`relative text-ink/80 ${size === "lg" ? "h-1/4 w-1/4" : "h-2/5 w-2/5"}`} />
