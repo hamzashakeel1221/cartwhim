@@ -21,11 +21,11 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
         <div className="transition duration-500 group-hover:scale-[1.04]">
           <ProductArt product={product} />
         </div>
-        <div className="absolute left-2 top-2 flex flex-col items-start gap-1">
+        <div className="absolute left-2 top-2 z-20 flex flex-col items-start gap-1 [transform:translateZ(40px)]">
           {off && <span className="rounded-full bg-brand-500 px-2 py-0.5 text-[11px] font-bold text-white shadow-sm">-{off}%</span>}
           {isNew && <span className="rounded-full bg-ink px-2 py-0.5 text-[11px] font-bold text-white">NEW</span>}
         </div>
-        <WishlistButton slug={product.slug} className="absolute right-2 top-2 h-9 w-9 rounded-full bg-white/90 shadow-sm backdrop-blur hover:bg-white" />
+        <WishlistButton slug={product.slug} className="absolute right-2 top-2 z-20 h-9 w-9 rounded-full bg-white/90 shadow-sm backdrop-blur hover:bg-white [transform:translateZ(40px)]" />
       </div>
       <div className="flex flex-1 flex-col px-1.5 pb-1 pt-3">
         <h3 className="line-clamp-2 text-[13px] font-semibold leading-snug sm:text-sm">{product.name}</h3>
