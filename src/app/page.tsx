@@ -6,7 +6,9 @@ import { Icon } from "@/components/icon";
 import { ProductArt } from "@/components/product-art";
 import { ProductCard } from "@/components/product-card";
 import { RecentlyViewed } from "@/components/recently-viewed";
-import { categories, getProduct, products } from "@/lib/catalog";
+import { Hero3D } from "@/components/three/hero-3d";
+import { Tilt } from "@/components/tilt";
+import { categories, getProduct, products, type Product } from "@/lib/catalog";
 import { storeFaqs } from "@/lib/faqs";
 import { discountPercent, formatPKR } from "@/lib/format";
 import { faqLd, JsonLd, websiteLd } from "@/lib/seo";
@@ -37,7 +39,7 @@ export default function Home() {
             <div className="absolute -bottom-32 right-0 h-96 w-96 rounded-full bg-rose-500/40 blur-3xl" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.08)_1px,transparent_0)] [background-size:22px_22px]" />
           </div>
-          <div className="relative grid items-center gap-8 px-5 pb-6 pt-9 sm:px-10 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:px-14 lg:py-16">
+          <div className="relative grid items-center gap-2 px-5 pb-6 pt-9 lg:gap-8 sm:px-10 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:px-14 lg:py-16">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold ring-1 ring-white/15 backdrop-blur">
                 <Zap className="h-3.5 w-3.5 fill-brand-200 text-brand-200" /> Winter Sale · up to 45% off
@@ -60,24 +62,15 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="scrollbar-none -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 lg:mx-0 lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible lg:px-0">
-              {heroPicks.map((p, i) => (
-                <Link
-                  key={p.slug}
-                  href={`/products/${p.slug}`}
-                  className={`w-[62%] shrink-0 snap-start rounded-3xl bg-white p-2.5 text-ink shadow-2xl shadow-black/30 transition hover:-translate-y-1 sm:w-[40%] lg:w-auto ${i === 1 ? "lg:mt-10" : ""} ${i === 2 ? "lg:col-span-2 lg:mx-auto lg:-mt-4 lg:w-1/2" : ""}`}
-                >
-                  <ProductArt product={p} priority={i === 0} />
-                  <div className="px-1.5 pb-1 pt-2.5">
-                    <p className="line-clamp-1 text-sm font-semibold">{p.name}</p>
-                    <div className="mt-0.5 flex items-baseline gap-2">
-                      <span className="text-lg font-extrabold">{formatPKR(p.price)}</span>
-                      {p.compareAt && <span className="text-xs text-stone-400 line-through">{formatPKR(p.compareAt)}</span>}
-                    </div>
-                  </div>
-                </Link>
-              ))}
+            <div className="relative">
+              {/* Interactive 3D scene: drag to spin the bag. Static picks show until it loads (or if 3D is off). */}
+              <Hero3D
+                className="-mx-5 h-64 sm:h-80 lg:mx-0 lg:h-[480px]"
+                fallback={<div className="hidden h-full lg:block"><HeroPicks picks={heroPicks} desktop /></div>}
+              />
+              <p className="pointer-events-none absolute bottom-1 left-1/2 hidden -translate-x-1/2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-white/60 backdrop-blur lg:block">Drag to spin</p>
             </div>
+            <div className="lg:hidden"><HeroPicks picks={heroPicks} /></div>
           </div>
         </div>
       </section>
@@ -197,6 +190,27 @@ export default function Home() {
         </div>
       </section>
     </>
+  );
+}
+
+function HeroPicks({ picks, desktop }: { picks: Product[]; desktop?: boolean }) {
+  return (
+    <div className={desktop ? "grid grid-cols-2 gap-4" : "scrollbar-none -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5"}>
+      {picks.map((p, i) => (
+        <Tilt key={p.slug} className={desktop ? `${i === 1 ? "mt-10" : ""} ${i === 2 ? "col-span-2 mx-auto -mt-4 w-1/2" : ""}` : "w-[62%] shrink-0 snap-start sm:w-[40%]"}>
+          <Link href={`/products/${p.slug}`} className="block rounded-3xl bg-white p-2.5 text-ink shadow-2xl shadow-black/30">
+            <ProductArt product={p} priority={i === 0} />
+            <div className="px-1.5 pb-1 pt-2.5">
+              <p className="line-clamp-1 text-sm font-semibold">{p.name}</p>
+              <div className="mt-0.5 flex items-baseline gap-2">
+                <span className="text-lg font-extrabold">{formatPKR(p.price)}</span>
+                {p.compareAt && <span className="text-xs text-stone-400 line-through">{formatPKR(p.compareAt)}</span>}
+              </div>
+            </div>
+          </Link>
+        </Tilt>
+      ))}
+    </div>
   );
 }
 

@@ -5,15 +5,17 @@ import { store } from "@/lib/store-config";
 import { QuickAdd } from "./add-to-cart";
 import { ProductArt } from "./product-art";
 import { Rating } from "./rating";
+import { Tilt } from "./tilt";
 import { WishlistButton } from "./wishlist-button";
 
 export function ProductCard({ product, className = "" }: { product: Product; className?: string }) {
   const off = discountPercent(product.price, product.compareAt);
   const isNew = product.tags?.includes("new");
   return (
+    <Tilt className={`h-full rounded-3xl ${className}`} max={8}>
     <Link
       href={`/products/${product.slug}`}
-      className={`group relative flex flex-col rounded-3xl bg-white p-2 ring-1 ring-stone-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgb(28_26_46/0.25)] sm:p-2.5 ${className}`}
+      className="group relative flex h-full flex-col rounded-3xl bg-white p-2 ring-1 ring-stone-200/70 transition-shadow duration-300 hover:shadow-[0_24px_48px_-20px_rgb(28_26_46/0.3)] sm:p-2.5"
     >
       <div className="relative overflow-hidden rounded-[1.25rem]">
         <div className="transition duration-500 group-hover:scale-[1.04]">
@@ -38,5 +40,6 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
         {product.price >= store.shipping.freeOver && <p className="mt-2 text-[11px] font-semibold text-emerald-600">Free delivery</p>}
       </div>
     </Link>
+    </Tilt>
   );
 }

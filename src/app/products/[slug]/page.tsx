@@ -10,6 +10,7 @@ import { ProductCard } from "@/components/product-card";
 import { Rating } from "@/components/rating";
 import { RecentlyViewed, TrackView } from "@/components/recently-viewed";
 import { ShareButton } from "@/components/share-button";
+import { Tilt } from "@/components/tilt";
 import { WishlistButton } from "@/components/wishlist-button";
 import { getCategory, getProduct, productSku, products } from "@/lib/catalog";
 import { discountPercent, formatPKR } from "@/lib/format";
@@ -69,7 +70,7 @@ export default async function ProductPage({ params }: { params: Params }) {
       <div className="mt-4 grid gap-6 lg:mt-6 lg:grid-cols-2 lg:gap-14">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <div className="relative -mx-4 bg-white p-3 sm:mx-0 sm:rounded-[2rem] sm:p-4 sm:ring-1 sm:ring-stone-200/70">
-            <Gallery product={product} />
+            <Tilt className="rounded-2xl" max={7}><Gallery product={product} /></Tilt>
             <div className="absolute right-6 top-6 flex flex-col gap-2 sm:right-7 sm:top-7">
               <WishlistButton slug={product.slug} className="h-10 w-10 rounded-full bg-white shadow-md" />
               <ShareButton title={product.name} className="h-10 w-10 rounded-full bg-white shadow-md" />
