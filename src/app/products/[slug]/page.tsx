@@ -71,11 +71,11 @@ export default async function ProductPage({ params }: { params: Params }) {
         <div className="lg:sticky lg:top-32 lg:self-start">
           <div className="relative -mx-4 bg-white p-3 sm:mx-0 sm:rounded-[2rem] sm:p-4 sm:ring-1 sm:ring-stone-200/70">
             <Tilt className="rounded-2xl" max={7}><Gallery product={product} /></Tilt>
-            <div className="absolute right-6 top-6 flex flex-col gap-2 sm:right-7 sm:top-7">
+            <div className="absolute right-6 top-6 z-20 flex flex-col gap-2 sm:right-7 sm:top-7">
               <WishlistButton slug={product.slug} className="h-10 w-10 rounded-full bg-white shadow-md" />
               <ShareButton title={product.name} className="h-10 w-10 rounded-full bg-white shadow-md" />
             </div>
-            {off && <span className="absolute left-6 top-6 rounded-full bg-brand-500 px-3 py-1 text-sm font-bold text-white sm:left-7 sm:top-7">-{off}%</span>}
+            {off && <span className="absolute left-6 top-6 z-20 rounded-full bg-brand-500 px-3 py-1 text-sm font-bold text-white sm:left-7 sm:top-7">-{off}%</span>}
           </div>
         </div>
 

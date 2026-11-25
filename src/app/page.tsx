@@ -39,7 +39,7 @@ export default function Home() {
             <div className="absolute -bottom-32 right-0 h-96 w-96 rounded-full bg-rose-500/40 blur-3xl" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.08)_1px,transparent_0)] [background-size:22px_22px]" />
           </div>
-          <div className="relative grid items-center gap-2 px-5 pb-6 pt-9 lg:gap-8 sm:px-10 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:px-14 lg:py-16">
+          <div className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-2 px-5 pb-6 pt-9 lg:gap-8 sm:px-10 sm:py-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:px-14 lg:py-16">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold ring-1 ring-white/15 backdrop-blur">
                 <Zap className="h-3.5 w-3.5 fill-brand-200 text-brand-200" /> Winter Sale · up to 45% off
