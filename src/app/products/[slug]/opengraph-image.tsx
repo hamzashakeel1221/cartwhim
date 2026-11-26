@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { getCategory, getProduct, products } from "@/lib/catalog";
+import { getCategory, products } from "@/lib/catalog";
+import { findProduct } from "@/lib/product-store";
 import { discountPercent, formatPKR } from "@/lib/format";
 import { Brand, ogSize } from "@/lib/og";
 
@@ -12,7 +13,7 @@ export function generateStaticParams() {
 }
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
-  const p = getProduct((await params).slug);
+  const p = await findProduct((await params).slug);
   const off = p ? discountPercent(p.price, p.compareAt) : null;
   return new ImageResponse(
     (

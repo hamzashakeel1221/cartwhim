@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCustomer } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { getProduct } from "@/lib/catalog";
+import { findProduct } from "@/lib/product-store";
 import { newOrderId, saveOrder, type Order } from "@/lib/orders";
 import { shippingFor } from "@/lib/store-config";
 import { checkoutSchema } from "@/lib/validation";
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   // Never trust prices from the browser: rebuild the order from the catalog.
   const items: Order["items"] = [];
   for (const line of data.items) {
-    const p = getProduct(line.slug);
+    const p = await findProduct(line.slug);
     if (!p) return NextResponse.json({ error: "A product in your cart is no longer available." }, { status: 400 });
     items.push({ slug: p.slug, name: p.name, price: p.price, qty: Math.min(line.qty, p.stock), supplier: p.supplier, supplierSku: p.supplierSku });
   }

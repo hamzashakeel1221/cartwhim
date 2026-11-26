@@ -6,7 +6,8 @@ import { Faq } from "@/components/faq";
 import { Icon } from "@/components/icon";
 import { ProductGrid } from "@/components/product-grid";
 import { SortSelect } from "@/components/sort-select";
-import { categories, getCategory, productsIn } from "@/lib/catalog";
+import { categories, getCategory } from "@/lib/catalog";
+import { productsInCategory } from "@/lib/product-store";
 import { formatPKR } from "@/lib/format";
 import { breadcrumbLd, faqLd, itemListLd, JsonLd } from "@/lib/seo";
 import { sortProducts } from "@/lib/sorting";
@@ -21,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const c = getCategory((await params).slug);
   if (!c) return {};
-  const list = productsIn(c.slug);
+  const list = await productsInCategory(c.slug);
   const min = Math.min(...list.map((p) => p.price));
   const title = `${c.name}: Buy Online in Pakistan`;
   const description = `Shop ${c.name.toLowerCase()} online in Pakistan from ${formatPKR(min)}. ${list.length} products, Cash on Delivery, fast delivery and ${store.returnDays} day returns.`;
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function CategoryPage({ params }: { params: Params }) {
   const c = getCategory((await params).slug);
   if (!c) notFound();
-  const all = productsIn(c.slug);
+  const all = await productsInCategory(c.slug);
   const list = sortProducts(all);
   const min = Math.min(...all.map((p) => p.price));
   const faqs = [

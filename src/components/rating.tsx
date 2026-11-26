@@ -1,6 +1,8 @@
 import { Star } from "lucide-react";
 
 export function Rating({ value, reviews, size = "sm" }: { value: number; reviews?: number; size?: "sm" | "md" }) {
+  // Products added in the admin start with no reviews: show a "New" label instead of empty stars.
+  if (reviews === 0) return <span className="whitespace-nowrap rounded-full bg-stone-100 px-2 py-0.5 text-[11px] font-semibold text-stone-500">New</span>;
   const s = size === "md" ? "h-4 w-4" : "h-3 w-3 sm:h-3.5 sm:w-3.5";
   return (
     <div className="flex items-center gap-1 whitespace-nowrap" aria-label={`Rated ${value} out of 5`}>

@@ -68,7 +68,7 @@ export function productLd(p: Product) {
     sku: productSku(p),
     image: p.images?.length ? p.images.map(abs) : [abs(`/products/${p.slug}/opengraph-image`)],
     category: getCategory(p.category)?.name,
-    aggregateRating: { "@type": "AggregateRating", ratingValue: p.rating, reviewCount: p.reviews, bestRating: 5 },
+    ...(p.reviews > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: p.rating, reviewCount: p.reviews, bestRating: 5 } } : {}),
     offers: {
       "@type": "Offer",
       url: abs(`/products/${p.slug}`),

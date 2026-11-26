@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { getProduct, type Product } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
+import { useCatalog } from "./catalog-provider";
 import { shippingFor } from "@/lib/store-config";
 
 export type CartLine = { slug: string; qty: number };
@@ -27,6 +28,7 @@ const CartContext = createContext<CartState | null>(null);
 const KEY = "cartwhim-cart-v1";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
+  const { getProduct } = useCatalog();
   const [raw, setRaw] = useState<CartLine[]>([]);
   const [ready, setReady] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -61,14 +63,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
     if (opts?.openDrawer) setDrawerOpen(true);
     else setToast(`${p.name} added to cart`);
-  }, []);
+  }, [getProduct]);
 
   const setQty = useCallback((slug: string, qty: number) => {
     const p = getProduct(slug);
     setRaw((prev) =>
       qty <= 0 ? prev.filter((l) => l.slug !== slug) : prev.map((l) => (l.slug === slug ? { ...l, qty: Math.min(qty, p?.stock ?? qty) } : l)),
     );
-  }, []);
+  }, [getProduct]);
 
   const remove = useCallback((slug: string) => setRaw((prev) => prev.filter((l) => l.slug !== slug)), []);
   const clear = useCallback(() => setRaw([]), []);
@@ -84,7 +86,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       count: lines.reduce((s, l) => s + l.qty, 0),
       add, setQty, remove, clear, drawerOpen, setDrawerOpen,
     };
-  }, [raw, ready, toast, add, setQty, remove, clear, drawerOpen]);
+  }, [raw, ready, toast, add, setQty, remove, clear, drawerOpen, getProduct]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

@@ -3,13 +3,18 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { BottomNav } from "@/components/bottom-nav";
 import { CartDrawer } from "@/components/cart-drawer";
 import { CartProvider } from "@/components/cart-provider";
+import { CatalogProvider } from "@/components/catalog-provider";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { CartToast } from "@/components/toast";
 import { WishlistProvider } from "@/components/wishlist-provider";
+import { getOverlay } from "@/lib/product-store";
 import { JsonLd, organizationLd, siteUrl } from "@/lib/seo";
 import { store } from "@/lib/store-config";
 import "./globals.css";
+
+// Products and photos added in the admin come from the database, so pages are rendered on request instead of at build time.
+export const dynamic = "force-dynamic";
 
 const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], display: "swap" });
 
@@ -39,11 +44,13 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const overlay = await getOverlay();
   return (
     <html lang="en-PK">
       <body className={`${jakarta.variable} font-sans antialiased`}>
         <JsonLd data={organizationLd()} />
+        <CatalogProvider overlay={overlay}>
         <CartProvider>
           <WishlistProvider>
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
@@ -55,6 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <CartToast />
           </WishlistProvider>
         </CartProvider>
+        </CatalogProvider>
       </body>
     </html>
   );
