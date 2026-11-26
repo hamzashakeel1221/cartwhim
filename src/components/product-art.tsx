@@ -4,11 +4,12 @@ import { Icon } from "./icon";
 
 // Shows the product photo when one exists, otherwise a branded placeholder.
 export function ProductArt({ product, size = "md", priority }: { product: Product; size?: "md" | "lg"; priority?: boolean }) {
-  const img = product.images?.[0];
+  // Cards use the small uploaded thumbnail; the big product view uses the full photo.
+  const img = size === "lg" ? product.images?.[0] : (product.thumbs?.[0] ?? product.images?.[0]);
   if (img) {
     return (
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-zinc-100">
-        <Image src={img} alt={product.name} fill priority={priority} sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
+        <Image src={img} alt={product.name} fill priority={priority} unoptimized={img.startsWith("/api/photo/")} sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
       </div>
     );
   }

@@ -27,7 +27,7 @@ export function Gallery({ product }: { product: Product }) {
       >
         {images.map((src, i) => (
           <div key={src} className="relative aspect-square w-full shrink-0 snap-center bg-stone-100">
-            <Image src={src} alt={`${product.name} photo ${i + 1}`} fill priority={i === 0} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+            <Image src={src} alt={`${product.name} photo ${i + 1}`} fill priority={i === 0} unoptimized={src.startsWith("/api/photo/")} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
           </div>
         ))}
       </div>
@@ -37,7 +37,7 @@ export function Gallery({ product }: { product: Product }) {
       <div className="mt-3 hidden gap-2 sm:flex">
         {images.map((src, i) => (
           <button key={src} onClick={() => goTo(i)} className={`relative h-20 w-20 overflow-hidden rounded-xl ring-2 transition ${i === active ? "ring-brand-500" : "ring-transparent opacity-70 hover:opacity-100"}`} aria-label={`Show photo ${i + 1}`}>
-            <Image src={src} alt="" fill sizes="80px" className="object-cover" />
+            <Image src={product.thumbs?.[i] ?? src} alt="" fill sizes="80px" unoptimized={src.startsWith("/api/photo/")} className="object-cover" />
           </button>
         ))}
       </div>

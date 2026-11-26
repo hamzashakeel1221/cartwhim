@@ -4,7 +4,8 @@ import { Suspense } from "react";
 import { SearchX } from "lucide-react";
 import { ProductGrid } from "@/components/product-grid";
 import { SortSelect } from "@/components/sort-select";
-import { categories, getCategory, products } from "@/lib/catalog";
+import { categories, getCategory } from "@/lib/catalog";
+import { getCatalog } from "@/lib/product-store";
 import { sortProducts } from "@/lib/sorting";
 
 type SP = Promise<{ q?: string; category?: string; sort?: string; tag?: string; price?: string }>;
@@ -29,6 +30,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SP }): 
 
 export default async function ProductsPage({ searchParams }: { searchParams: SP }) {
   const { q = "", category, sort, tag, price } = await searchParams;
+  const products = await getCatalog();
   const cat = category ? getCategory(category) : undefined;
   const band = price ? priceBands[price] : undefined;
   const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { getProduct, type Product } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
+import { useCatalog } from "./catalog-provider";
 import { ProductCard } from "./product-card";
 import { useWishlist } from "./wishlist-provider";
 
@@ -13,6 +14,7 @@ export function TrackView({ slug }: { slug: string }) {
 
 export function RecentlyViewed({ exclude, title = "Recently viewed" }: { exclude?: string; title?: string }) {
   const { recent, ready } = useWishlist();
+  const { getProduct } = useCatalog();
   if (!ready) return null;
   const list = recent.filter((s) => s !== exclude).map(getProduct).filter((p): p is Product => Boolean(p)).slice(0, 8);
   if (!list.length) return null;

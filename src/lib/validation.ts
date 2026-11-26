@@ -39,3 +39,21 @@ export const profileSchema = z.object({
   city: z.string().trim().max(60).optional().or(z.literal("")),
   address: z.string().trim().max(300).optional().or(z.literal("")),
 });
+
+const optionalMoney = z.preprocess((v) => (v === "" || v == null ? null : v), z.coerce.number().int().min(0).max(10_000_000).nullable());
+
+export const productInputSchema = z.object({
+  name: z.string().trim().min(3, "Enter the product name").max(120),
+  category: z.string().trim().min(1, "Choose a category"),
+  supplier: z.string().trim().min(1, "Choose a supplier"),
+  supplierSku: z.string().trim().max(60).optional(),
+  cost: optionalMoney,
+  price: z.coerce.number({ error: "Enter the price" }).int().min(1, "Enter the price").max(10_000_000),
+  compareAt: optionalMoney,
+  stock: z.coerce.number({ error: "Enter the stock" }).int().min(0).max(100_000),
+  description: z.string().trim().min(10, "Write a short description (at least 10 characters)").max(3000),
+  highlights: z.array(z.string().trim().min(1).max(120)).max(8),
+  tags: z.array(z.enum(["trending", "deal", "new"])).max(3),
+  scroll3d: z.boolean(),
+  published: z.boolean(),
+});

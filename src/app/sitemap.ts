@@ -1,8 +1,13 @@
 import type { MetadataRoute } from "next";
-import { categories, products } from "@/lib/catalog";
+import { categories } from "@/lib/catalog";
+import { getCatalog } from "@/lib/product-store";
 import { abs } from "@/lib/seo";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Built per request so products added in the admin are listed.
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const products = await getCatalog();
   const now = new Date();
   return [
     { url: abs("/"), lastModified: now, changeFrequency: "daily", priority: 1 },

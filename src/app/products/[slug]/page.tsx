@@ -12,19 +12,19 @@ import { RecentlyViewed, TrackView } from "@/components/recently-viewed";
 import { ShareButton } from "@/components/share-button";
 import { Tilt } from "@/components/tilt";
 import { WishlistButton } from "@/components/wishlist-button";
-import { getCategory, getProduct, productSku, products } from "@/lib/catalog";
+import { ProductScroll3D } from "@/components/product-scroll-3d";
+import { getCategory, hasScroll3d, productSku } from "@/lib/catalog";
+import { findProduct, getCatalog } from "@/lib/product-store";
 import { discountPercent, formatPKR } from "@/lib/format";
 import { breadcrumbLd, faqLd, JsonLd, productLd } from "@/lib/seo";
 import { store } from "@/lib/store-config";
 
 type Params = Promise<{ slug: string }>;
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const p = getProduct((await params).slug);
+  const p = await findProduct((await params).slug);
   if (!p) return {};
   const off = discountPercent(p.price, p.compareAt);
   const title = `${p.name} Price in Pakistan`;
@@ -40,8 +40,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 }
 
 export default async function ProductPage({ params }: { params: Params }) {
-  const product = getProduct((await params).slug);
+  const product = await findProduct((await params).slug);
   if (!product) notFound();
+  const products = await getCatalog();
   const cat = getCategory(product.category);
   const off = discountPercent(product.price, product.compareAt);
   const related = products.filter((p) => p.category === product.category && p.slug !== product.slug);
@@ -54,6 +55,7 @@ export default async function ProductPage({ params }: { params: Params }) {
   ];
 
   return (
+    <>
     <div className="container-x pt-4 sm:pt-6">
       <JsonLd data={[
         productLd(product),
@@ -136,6 +138,11 @@ export default async function ProductPage({ params }: { params: Params }) {
         </div>
       </div>
 
+    </div>
+
+    {hasScroll3d(product) && <ProductScroll3D product={product} />}
+
+    <div className="container-x">
       <section className="mt-14">
         <h2 className="mb-5 text-xl font-extrabold tracking-tight sm:text-2xl">You may also like</h2>
         <div className="snap-row">{[...related, ...more].slice(0, 8).map((p) => <ProductCard key={p.slug} product={p} />)}</div>
@@ -148,6 +155,7 @@ export default async function ProductPage({ params }: { params: Params }) {
 
       <RecentlyViewed exclude={product.slug} />
     </div>
+    </>
   );
 }
 

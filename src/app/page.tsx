@@ -8,7 +8,8 @@ import { ProductCard } from "@/components/product-card";
 import { RecentlyViewed } from "@/components/recently-viewed";
 import { Hero3D } from "@/components/three/hero-3d";
 import { Tilt } from "@/components/tilt";
-import { categories, getProduct, products, type Product } from "@/lib/catalog";
+import { categories, type Product } from "@/lib/catalog";
+import { getCatalog } from "@/lib/product-store";
 import { storeFaqs } from "@/lib/faqs";
 import { discountPercent, formatPKR } from "@/lib/format";
 import { faqLd, JsonLd, websiteLd } from "@/lib/seo";
@@ -21,7 +22,9 @@ const perks = [
   { icon: BadgeCheck, title: "Quality checked", text: "Before every dispatch" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const products = await getCatalog();
+  const getProduct = (slug: string) => products.find((p) => p.slug === slug);
   const trending = products.filter((p) => p.tags?.includes("trending"));
   const deals = [...products].sort((a, b) => (discountPercent(b.price, b.compareAt) ?? 0) - (discountPercent(a.price, a.compareAt) ?? 0)).slice(0, 8);
   const fresh = products.filter((p) => p.tags?.includes("new")).slice(0, 4);

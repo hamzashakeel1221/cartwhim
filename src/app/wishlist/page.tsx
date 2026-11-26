@@ -4,10 +4,12 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 import { ProductGrid } from "@/components/product-grid";
 import { useWishlist } from "@/components/wishlist-provider";
-import { getProduct, type Product } from "@/lib/catalog";
+import { useCatalog } from "@/components/catalog-provider";
+import type { Product } from "@/lib/catalog";
 
 export default function WishlistPage() {
   const { slugs, ready } = useWishlist();
+  const { getProduct } = useCatalog();
   const list = slugs.map(getProduct).filter((p): p is Product => Boolean(p));
   return (
     <div className="container-x pt-6">

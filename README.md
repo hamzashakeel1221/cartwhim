@@ -69,3 +69,17 @@ Orders: `/admin/orders` (browser asks for a password: any username, password = `
 
 - Put your real WhatsApp Business number and support email in `store-config.ts`.
 - JazzCash / Easypaisa / card payments are shown as "coming soon".
+
+## Adding products with photos (3D scroll pages)
+
+Open `/admin/products` (same password as Orders) and press **Add product**. Fill in the details, add 3 to 8 photos
+and save. Photos are resized in your browser and stored in Cloudflare D1, so no extra storage service is needed.
+Any product with 3 or more photos gets a 3D scroll section on its own page (untick "Show 3D scroll animation" to turn it
+off). Built-in products can get photos too, from the **Photos** link in the same list.
+
+Run the new migration once on the live database before using it:
+
+```bash
+npm run db:migrate:remote   # production
+npm run db:migrate:local    # local dev
+```

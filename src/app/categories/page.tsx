@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Icon } from "@/components/icon";
-import { categories, productsIn } from "@/lib/catalog";
+import { categories } from "@/lib/catalog";
+import { getCatalog } from "@/lib/product-store";
 
 export const metadata: Metadata = {
   title: "All categories",
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/categories" },
 };
 
-export default function Categories() {
+export default async function Categories() {
+  const products = await getCatalog();
+  const countIn = (slug: string) => products.filter((p) => p.category === slug).length;
   return (
     <div className="container-x pt-6">
       <h1 className="text-3xl font-extrabold tracking-tight">Categories</h1>
@@ -20,7 +23,7 @@ export default function Categories() {
             <span className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-white/70"><Icon name={c.icon} className="h-8 w-8" /></span>
             <div className="flex-1">
               <p className="font-bold">{c.name}</p>
-              <p className="text-sm text-ink/60">{productsIn(c.slug).length} products · {c.blurb}</p>
+              <p className="text-sm text-ink/60">{countIn(c.slug)} products · {c.blurb}</p>
             </div>
             <ChevronRight className="h-5 w-5 text-ink/40 transition group-hover:translate-x-0.5" />
           </Link>

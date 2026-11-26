@@ -25,7 +25,10 @@ export type Product = {
   reviews: number;
   stock: number;
   icon: string;
-  images?: string[]; // real product photos go here (put files in /public/products)
+  images?: string[]; // real product photos go here (put files in /public/products), or upload them in /admin/products
+  thumbs?: string[]; // small versions of the uploaded photos, for product cards
+  scroll3d?: boolean; // set false to hide the 3D scroll section (it shows when a product has 3 or more photos)
+  fromAdmin?: boolean; // true for products created in /admin/products
   description: string;
   highlights: string[];
   tags?: ("trending" | "deal" | "new")[];
@@ -257,9 +260,34 @@ export const products: Product[] = [
   },
 ];
 
+// Products created in /admin/products, and photos uploaded there. Loaded from the database by lib/product-store.ts.
+export type CatalogOverlay = {
+  added: Product[];
+  photos: Record<string, { images: string[]; thumbs: string[] }>; // keyed by product slug, also for products in this file
+};
+
+export const emptyOverlay: CatalogOverlay = { added: [], photos: {} };
+
+// Built-in products plus whatever was added in the admin. Uploaded photos replace the built-in `images`.
+export function mergeCatalog(overlay: CatalogOverlay): Product[] {
+  const withPhotos = (p: Product): Product => {
+    const ph = overlay.photos[p.slug];
+    return ph?.images.length ? { ...p, images: ph.images, thumbs: ph.thumbs } : p;
+  };
+  return [...overlay.added.map(withPhotos), ...products.map(withPhotos)];
+}
+
+// Built-in products only. Pages should use getCatalog() (server) or useCatalog() (client) so admin products are included.
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
 }
+
+// The 3D scroll section appears on product pages with 3 or more photos.
+export function hasScroll3d(p: Product) {
+  return p.scroll3d !== false && (p.images?.length ?? 0) >= 3;
+}
+
+export const productPhotoUrl = (id: string, thumb = false) => `/api/photo/${id}${thumb ? "?s=thumb" : ""}`;
 
 export function getCategory(slug: string) {
   return categories.find((c) => c.slug === slug);

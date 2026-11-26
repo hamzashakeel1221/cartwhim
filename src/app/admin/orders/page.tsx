@@ -1,3 +1,4 @@
+import { AdminNav } from "@/components/admin/admin-nav";
 import { revalidatePath } from "next/cache";
 import { getSupplier } from "@/lib/suppliers";
 import { formatPKR } from "@/lib/format";
@@ -18,7 +19,8 @@ export default async function AdminOrders() {
   const orders = await listOrders();
   return (
     <div className="container-x pt-10">
-      <h1 className="text-3xl font-extrabold tracking-tight">Orders</h1>
+      <AdminNav active="orders" />
+      <h1 className="mt-6 text-3xl font-extrabold tracking-tight">Orders</h1>
       <p className="mt-1 text-sm text-stone-500">{orders.length} orders. Each order is split by supplier so you know what to forward where.</p>
       <div className="mt-8 space-y-5">
         {orders.map((o) => (

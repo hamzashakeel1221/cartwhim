@@ -4,16 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { Plus, ShoppingBag, Trash2, Truck, X } from "lucide-react";
-import { products } from "@/lib/catalog";
 import { formatPKR } from "@/lib/format";
 import { store } from "@/lib/store-config";
 import { QtyStepper } from "./add-to-cart";
+import { useCatalog } from "./catalog-provider";
 import { useCart } from "./cart-provider";
 import { ProductArt } from "./product-art";
 
 export function CartDrawer() {
   const { drawerOpen: open, setDrawerOpen, lines, subtotal, shipping, total, setQty, remove, add } = useCart();
   const path = usePathname();
+  const { products } = useCatalog();
 
   useEffect(() => setDrawerOpen(false), [path, setDrawerOpen]);
   useEffect(() => {

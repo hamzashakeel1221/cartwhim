@@ -4,14 +4,16 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Search, X } from "lucide-react";
-import { categories, products } from "@/lib/catalog";
+import { categories } from "@/lib/catalog";
 import { formatPKR } from "@/lib/format";
+import { useCatalog } from "./catalog-provider";
 import { Icon } from "./icon";
 
 const popular = ["earbuds", "air fryer", "smart watch", "power bank", "handbag"];
 
 export function SearchBox({ className = "", autoFocus }: { className?: string; autoFocus?: boolean }) {
   const router = useRouter();
+  const { products } = useCatalog();
   const params = useSearchParams();
   const [q, setQ] = useState(params.get("q") ?? "");
   const [open, setOpen] = useState(false);
@@ -27,7 +29,7 @@ export function SearchBox({ className = "", autoFocus }: { className?: string; a
     const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
     if (!words.length) return [];
     return products.filter((p) => words.every((w) => `${p.name} ${p.category}`.toLowerCase().includes(w))).slice(0, 5);
-  }, [q]);
+  }, [q, products]);
   const cats = useMemo(() => {
     const n = q.trim().toLowerCase();
     return n ? categories.filter((c) => c.name.toLowerCase().includes(n)).slice(0, 2) : [];
