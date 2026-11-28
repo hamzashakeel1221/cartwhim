@@ -16,6 +16,7 @@ const statusStyle: Record<OrderStatus, string> = {
   confirmed: "bg-sky-50 text-sky-700",
   dispatched: "bg-indigo-50 text-indigo-700",
   delivered: "bg-emerald-50 text-emerald-700",
+  returned: "bg-rose-50 text-rose-700",
   cancelled: "bg-stone-100 text-stone-500",
 };
 
