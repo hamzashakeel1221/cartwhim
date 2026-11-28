@@ -113,6 +113,112 @@ export async function activateHhcKey(websiteUrl: string) {
   return { ok: res.ok && data.success !== false, message: data.message ?? `HHC answered ${res.status}`, appName: data.app_name };
 }
 
+// ───────────── orders ─────────────
+
+async function hhcSend<T>(method: "POST", path: string, body: unknown): Promise<T> {
+  const key = await appKey();
+  if (!key) throw new HhcError("HHC is not connected yet: add the HHC_APP_KEY secret in Cloudflare.", 503);
+  const res = await fetch(BASE + path, {
+    method,
+    headers: { "app-key": key, "User-Agent": USER_AGENT, Accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+  if (res.status === 403) throw new HhcError("HHC refused the app key. Check that it is active in HHC → Tools → Integration & Apps.", 502);
+  if (!res.ok || data.success === false || data.status === false) throw new HhcError(hhcErrorText(data, res.status), res.status === 422 ? 422 : 502);
+  return ((data.data ?? data) as T);
+}
+
+/** Turns HHC's error body ({message, errors: {field: [..]}}) into one readable line. */
+function hhcErrorText(data: Record<string, unknown>, status: number) {
+  const parts: string[] = [];
+  if (typeof data.message === "string") parts.push(data.message);
+  const errors = data.errors as Record<string, unknown> | undefined;
+  if (errors && typeof errors === "object") {
+    for (const v of Object.values(errors)) parts.push(...(Array.isArray(v) ? v.map(String) : [String(v)]));
+  }
+  return [...new Set(parts)].join(" ") || `HHC answered ${status}`;
+}
+
+/** Unwraps HHC list responses, which come either as an array or as {data: [...]} (sometimes nested twice). */
+function rows<T>(v: unknown): T[] {
+  let cur = v;
+  for (let i = 0; i < 3 && cur && !Array.isArray(cur) && typeof cur === "object"; i++) cur = (cur as { data?: unknown }).data;
+  return Array.isArray(cur) ? (cur as T[]) : [];
+}
+
+export type HhcProductDetail = { id: number; name: string; type: "simple" | "variable"; wholesalePrice: number; variations?: { id: number; name: string; status: number }[] };
+
+export async function getHhcProductBySlug(slug: string): Promise<HhcProductDetail | null> {
+  try {
+    const p = await hhcGet<HhcProductDetail | { data: HhcProductDetail }>(`/dropshipper/open/product/slug/${encodeURIComponent(slug)}`, {});
+    const d = "data" in p && p.data ? p.data : (p as HhcProductDetail);
+    return d?.id ? d : null;
+  } catch (e) {
+    if (e instanceof HhcError && /answered 404/.test(e.message)) return null;
+    throw e;
+  }
+}
+
+export type HhcBusinessProfile = { id: number; bpName: string; bpDefault: boolean | number; isVerified: boolean | number };
+
+export async function listBusinessProfiles(): Promise<HhcBusinessProfile[]> {
+  return rows<HhcBusinessProfile>(await hhcGet<unknown>("/dropshipper/open/businessProfiles", { paginate: 100, bp_active: "true" }));
+}
+
+export type HhcCourierCity = { id: string; cityName: string };
+
+export async function listCourierCities(): Promise<HhcCourierCity[]> {
+  return rows<HhcCourierCity>(await hhcGet<unknown>("/dropshipper/open/courier_cities", {}));
+}
+
+export type HhcOrderLine = { product_id: number; variation_id?: number | null; quantity: number };
+
+export async function hhcCheckoutPreview(products: HhcOrderLine[], destinationCity: string) {
+  return hhcSend<{ total?: Record<string, unknown>; estimatedShipping?: Record<string, unknown>[]; courierID?: number }>("POST", "/dropshipper/open/checkout", {
+    products, payment_method: "cod", shp_type: 1, destination_city: destinationCity,
+  });
+}
+
+export type HhcOrderDetail = {
+  id: number; total?: number; profit?: number; shipping?: number; sellPrice?: number; courier_name?: string; order_status_name?: string;
+};
+
+export async function placeHhcOrder(input: {
+  products: HhcOrderLine[]; fullName: string; address: string; destinationCity: string; phone: string; bpId: number; sellPrice: number;
+}): Promise<HhcOrderDetail> {
+  return hhcSend<HhcOrderDetail>("POST", "/dropshipper/open/orders", {
+    products: input.products,
+    full_name: input.fullName,
+    address: input.address.slice(0, 200),
+    destination_city: input.destinationCity,
+    phone: input.phone,
+    bp_id: input.bpId,
+    shp_type: 1,
+    payment_method: "cod",
+    sell_price: input.sellPrice,
+  });
+}
+
+export type HhcOrderListItem = {
+  id: number; total?: number; profit?: number; sellPrice?: number; returnCharges?: number; courier_name?: string; tracking_no?: string | null;
+  order_status_name?: string; shipment_status_name?: string; latest_shipment_history?: string | null; consignee_phone?: string;
+};
+
+/** Recent HHC orders, newest first (up to `pages` × 100). */
+export async function listHhcOrders(opts: { dateFrom?: string; pages?: number } = {}): Promise<HhcOrderListItem[]> {
+  const out: HhcOrderListItem[] = [];
+  for (let page = 1; page <= (opts.pages ?? 5); page++) {
+    const res = await hhcGet<{ data?: unknown; last_page?: number; total?: number; per_page?: number }>("/dropshipper/open/orders", {
+      paginate: 100, page, date_from: opts.dateFrom, field: "id", sort: "desc",
+    });
+    const list = rows<HhcOrderListItem>(res);
+    out.push(...list);
+    if (list.length < 100) break;
+  }
+  return out;
+}
+
 // ───────────── helpers shared by import and sync ─────────────
 
 /** CartWhim stores the HHC link in supplier_sku as "<productId>" or "<productId>-v<variationId>". */

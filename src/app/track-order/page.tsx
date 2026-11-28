@@ -36,8 +36,8 @@ export default async function TrackOrder({ searchParams }: { searchParams: Promi
             <p className="font-bold">Order {order.id}</p>
             <p className="text-sm text-stone-500">{new Date(order.createdAt).toLocaleDateString("en-PK", { dateStyle: "medium" })}</p>
           </div>
-          {order.status === "cancelled" ? (
-            <p className="mt-4 font-semibold text-red-600">This order was cancelled.</p>
+          {order.status === "cancelled" || order.status === "returned" ? (
+            <p className="mt-4 font-semibold text-red-600">{order.status === "cancelled" ? "This order was cancelled." : "This order was returned."}</p>
           ) : (
             <ol className="mt-6 grid grid-cols-4 gap-2">
               {steps.map((s, i) => (
@@ -47,6 +47,11 @@ export default async function TrackOrder({ searchParams }: { searchParams: Promi
                 </li>
               ))}
             </ol>
+          )}
+          {order.hhc?.tracking && (
+            <p className="mt-4 text-sm text-stone-600">
+              Courier: <b>{order.hhc.courier ?? "Courier"}</b> · Tracking number: <b className="font-mono">{order.hhc.tracking}</b>
+            </p>
           )}
           <ul className="mt-6 space-y-1 border-t border-stone-100 pt-4 text-sm">
             {order.items.map((i) => (
