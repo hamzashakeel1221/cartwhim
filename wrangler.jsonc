@@ -25,6 +25,10 @@
       "migrations_dir": "migrations"
     }
   ],
+  // Branch previews (wrangler preview, used by Workers Builds for pull requests) need their own bindings block.
+  "previews": {
+    "images": { "binding": "IMAGES" }
+  },
   "observability": { "enabled": true },
   // Keep variables and secrets set in the Cloudflare dashboard (ADMIN_PASSWORD) on every deploy.
   "keep_vars": true

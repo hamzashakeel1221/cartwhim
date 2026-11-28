@@ -6,6 +6,7 @@ interface __BaseEnv_CloudflareEnv {
 	IMAGES: ImagesBinding;
 	ASSETS: Fetcher;
 	ADMIN_PASSWORD: string;
+	HHC_APP_KEY?: string;
 	WORKER_SELF_REFERENCE: Fetcher /* cartwhim */;
 }
 declare namespace Cloudflare {

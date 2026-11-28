@@ -263,3 +263,25 @@ export async function readPhoto(id: string, thumb: boolean): Promise<{ mime: str
   // The thumbnail can be a different format from the main photo, so identify the bytes we are about to serve.
   return { mime: sniffImage(new Uint8Array(data)) ?? row.mime, data };
 }
+
+// ───────────── supplier sync (HHC import) ─────────────
+
+export type SupplierLink = { slug: string; supplierSku: string | null; price: number; cost: number | null; stock: number; published: boolean };
+
+/** Admin products that come from one supplier, with the supplier's product code. */
+export async function listSupplierProducts(supplier: string): Promise<SupplierLink[]> {
+  const d = await db();
+  const { results } = await d
+    .prepare(`SELECT slug, supplier_sku, price, cost, stock, published FROM products WHERE supplier = ?`)
+    .bind(supplier)
+    .all<{ slug: string; supplier_sku: string | null; price: number; cost: number | null; stock: number; published: number }>();
+  return results.map((r) => ({ slug: r.slug, supplierSku: r.supplier_sku, price: r.price, cost: r.cost, stock: r.stock, published: r.published === 1 }));
+}
+
+/** Refresh what the supplier controls (our cost and their stock) without touching anything you edited. */
+export async function updateCostAndStock(updates: { slug: string; cost: number; stock: number }[]) {
+  if (!updates.length) return;
+  const d = await db();
+  const now = new Date().toISOString();
+  await d.batch(updates.map((u) => d.prepare(`UPDATE products SET cost = ?, stock = ?, updated_at = ? WHERE slug = ?`).bind(u.cost, u.stock, now, u.slug)));
+}

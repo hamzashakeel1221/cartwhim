@@ -97,7 +97,7 @@ export default async function ProductPage({ params }: { params: Params }) {
           </div>
           <p className="mt-1 text-xs text-stone-500">Price in PKR, inclusive of all taxes</p>
 
-          <div className="mt-5"><DeliveryEstimate /></div>
+          <div className="mt-5"><DeliveryEstimate shipsFrom={product.shipsFrom} /></div>
 
           <ul className="mt-5 grid gap-2 sm:grid-cols-2">
             {product.highlights.map((h) => (
