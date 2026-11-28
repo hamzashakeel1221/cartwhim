@@ -2,6 +2,8 @@
 // (HHC Dropshipping, Oshi Dropshipping, ...) or a database / CMS.
 // `supplier`, `supplierSku` and `cost` are internal and never shown to shoppers.
 
+import { hhcProducts } from "./hhc-products";
+
 export type Category = {
   slug: string;
   name: string;
@@ -29,6 +31,7 @@ export type Product = {
   thumbs?: string[]; // small versions of the uploaded photos, for product cards
   scroll3d?: boolean; // set false to hide the 3D scroll section (it shows when a product has 3 or more photos)
   fromAdmin?: boolean; // true for products created in /admin/products
+  shipsFrom?: "Karachi" | "Lahore"; // supplier warehouse city, used for the delivery estimate
   description: string;
   highlights: string[];
   tags?: ("trending" | "deal" | "new")[];
@@ -62,6 +65,7 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
+  ...hhcProducts,
   {
     slug: "anc-wireless-earbuds",
     name: "Wireless Earbuds with ANC",
