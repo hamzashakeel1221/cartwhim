@@ -9,7 +9,7 @@ import { formatPKR } from "@/lib/format";
 import { useCatalog } from "./catalog-provider";
 import { Icon } from "./icon";
 
-const popular = ["earbuds", "air fryer", "smart watch", "power bank", "handbag"];
+const popular = ["tummy trimmer", "lcd tablet", "luggage scale", "trimmer", "busy book"];
 
 export function SearchBox({ className = "", autoFocus }: { className?: string; autoFocus?: boolean }) {
   const router = useRouter();
