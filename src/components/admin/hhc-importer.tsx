@@ -24,9 +24,17 @@ type Loose = any;
 const H = { "x-cartwhim-admin": "1" };
 const field = "w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500";
 
-/** Our default price: HHC's suggested price, or cost + 50% rounded up to the next Rs. 50. */
-function defaultPrice(cost: number, suggested: number) {
-  return suggested > cost ? Math.round(suggested) : Math.ceil((cost * 1.5) / 50) * 50;
+// Pricing rule: sell at HHC cost + your margin (Rs. 500 to 1,000), ending in 9.
+export const MIN_MARGIN = 500;
+export const MAX_MARGIN = 1000;
+export function priceFor(cost: number, margin: number) {
+  const m = Math.min(MAX_MARGIN, Math.max(MIN_MARGIN, margin));
+  const p = Math.ceil((cost + m + 1) / 100) * 100 - 1; // e.g. 423 + 500 → 999
+  return p - cost > MAX_MARGIN ? cost + MAX_MARGIN : p;
+}
+/** The struck-through "was" price: about 45% off, ending in 9. */
+export function wasPriceFor(price: number) {
+  return Math.ceil((price * 1.8) / 100) * 100 - 1;
 }
 
 export function HhcImporter() {
@@ -57,7 +65,7 @@ export function HhcImporter() {
     if (!res.ok) { setMsg({ ok: false, text: body.error ?? "Sync failed" }); return; }
     const parts = [`Checked ${body.checked} HHC products.`];
     if (body.unavailable.length) parts.push(`${body.unavailable.length} out of stock at HHC (stock set to 0): ${body.unavailable.join(", ")}.`);
-    if (body.lossMaking.length) parts.push(`HHC's cost is now at or above your price for: ${body.lossMaking.join(", ")}. Raise those prices.`);
+    if (body.lossMaking.length) parts.push(`Your margin is now under Rs. 500 for: ${body.lossMaking.join(", ")}. Raise those prices.`);
     setMsg({ ok: !body.lossMaking.length, text: parts.join(" ") });
   }
 
@@ -105,20 +113,23 @@ function HhcCard({ p, imported, onImported }: { p: HhcProduct; imported: Record<
   const variation = variations.find((v) => v.id === variationId);
   const cost = Math.round(variation ? variation.sale_price : p.wholesalePrice);
   const stock = variation ? variation.quantity : p.quantity;
-  const [price, setPrice] = useState(String(defaultPrice(cost, p.salePrice)));
+  const [margin, setMargin] = useState(String(MIN_MARGIN));
+  const price = priceFor(cost, Number(margin) || 0);
+  const was = wasPriceFor(price);
   const [category, setCategory] = useState(categories[0].slug);
   const [enhance, setEnhance] = useState(false);
   const [state, setState] = useState<{ busy?: boolean; error?: string }>({});
   const sku = variationId ? `${p.id}-v${variationId}` : String(p.id);
   const done = imported[sku];
-  const profit = Number(price) - cost;
+  const profit = price - cost;
+  const marginOk = Number(margin) >= MIN_MARGIN && Number(margin) <= MAX_MARGIN;
 
   async function importIt() {
     setState({ busy: true });
     const res = await fetch("/admin/api/hhc/import", {
       method: "POST",
       headers: { ...H, "content-type": "application/json" },
-      body: JSON.stringify({ id: p.id, variationId, category, price: Number(price), compareAt: Math.ceil((Number(price) * 1.35) / 50) * 50, enhance }),
+      body: JSON.stringify({ id: p.id, variationId, category, price, compareAt: was, enhance }),
     });
     const body = (await res.json().catch(() => ({}))) as Loose;
     if (!res.ok && !body.slug) { setState({ error: body.error ?? "Import failed" }); return; }
@@ -148,8 +159,8 @@ function HhcCard({ p, imported, onImported }: { p: HhcProduct; imported: Record<
         ) : (
           <div className="space-y-2">
             <div className="flex gap-2">
-              <label className="flex-1 text-xs text-stone-500">Your price
-                <input value={price} onChange={(e) => setPrice(e.target.value.replace(/\D/g, ""))} inputMode="numeric" className={`${field} mt-1`} />
+              <label className="flex-1 text-xs text-stone-500">Your margin (500–1,000)
+                <input value={margin} onChange={(e) => setMargin(e.target.value.replace(/\D/g, ""))} inputMode="numeric" className={`${field} mt-1`} />
               </label>
               <label className="flex-1 text-xs text-stone-500">Category
                 <select value={category} onChange={(e) => setCategory(e.target.value)} className={`${field} mt-1`}>
@@ -161,8 +172,12 @@ function HhcCard({ p, imported, onImported }: { p: HhcProduct; imported: Record<
               <input type="checkbox" checked={enhance} onChange={(e) => setEnhance(e.target.checked)} />
               Light photo touch-up (white square background, a bit brighter and sharper; product look unchanged)
             </label>
-            <p className={`text-xs ${profit > 0 ? "text-emerald-700" : "text-red-600"}`}>Margin before delivery: {formatPKR(profit)}</p>
-            <button onClick={importIt} disabled={state.busy || profit <= 0} className="btn btn-primary w-full justify-center">{state.busy ? "Importing…" : "Import to CartWhim"}</button>
+            <p className="text-sm">
+              Sells at <b>{formatPKR(price)}</b> <span className="text-stone-400 line-through">{formatPKR(was)}</span>{" "}
+              <span className="rounded-full bg-brand-500 px-2 py-0.5 text-[11px] font-bold text-white">-{Math.round((1 - price / was) * 100)}%</span>
+            </p>
+            <p className={`text-xs ${marginOk ? "text-emerald-700" : "text-red-600"}`}>Your margin: {formatPKR(profit)}{!marginOk && " (keep it between 500 and 1,000)"}</p>
+            <button onClick={importIt} disabled={state.busy || !marginOk} className="btn btn-primary w-full justify-center">{state.busy ? "Importing…" : "Import to CartWhim"}</button>
             {state.error && <p className="text-xs text-red-600">{state.error}</p>}
           </div>
         )}

@@ -93,6 +93,9 @@ CartWhim talks to HHC's developer API, so you can import HHC products (with phot
    `HHC_APP_KEY` with that key. (Never put the key in the code or share it in chat.)
 3. Open `/admin/hhc`, press **Link key to website** once, then search HHC and press **Import to CartWhim** on any product.
 
+Pricing: each product sells at HHC's cost plus your margin (Rs. 500 by default, allowed 500 to 1,000), rounded up to end in 9.
+A struck-through "was" price about 45% higher is shown with a discount badge.
+
 Imported products get HHC as their supplier and the HHC product id as their supplier code (`1234`, or `1234-v99` for a
 variation), so the Orders page shows exactly which HHC product to book. Press **Update stock & costs from HHC** daily:
 it refreshes cost and stock, sets stock to 0 for anything HHC no longer has, and warns you if HHC's cost has reached your

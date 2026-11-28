@@ -56,7 +56,8 @@ export async function POST(req: Request) {
     if (existing) return NextResponse.json({ error: "Already imported", slug: existing.slug }, { status: 409 });
 
     const { cost, stock } = hhcCostAndStock(p, v.variationId ?? null);
-    if (v.price <= cost) return NextResponse.json({ error: `Your price must be above HHC's cost (Rs. ${cost})` }, { status: 400 });
+    // Pricing rule: margin over HHC's cost must be Rs. 500 to 1,000 (cost may have changed since the search).
+    if (v.price - cost < 500 || v.price - cost > 1000) return NextResponse.json({ error: `HHC's cost is now Rs. ${cost}. Search again to get a price with a 500–1,000 margin.` }, { status: 409 });
     const variation = v.variationId ? p.variations?.find((x) => x.id === v.variationId) : undefined;
     let description = htmlToText(p.description).slice(0, 3000);
     if (description.length < 10) description = `${p.name}. Cash on delivery all over Pakistan.`;
@@ -72,7 +73,7 @@ export async function POST(req: Request) {
       stock,
       description,
       highlights: [],
-      tags: ["new"],
+      tags: v.compareAt && v.compareAt > v.price ? ["new", "deal"] : ["new"],
       scroll3d: true,
       published: v.published,
     });

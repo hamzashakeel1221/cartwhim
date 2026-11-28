@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       const { cost, stock, available } = hhcCostAndStock(p, l.ref!.variationId);
       updates.push({ slug: l.slug, cost, stock: available ? stock : 0 });
       if (!available) unavailable.push(l.slug);
-      if (cost >= l.price) lossMaking.push(l.slug);
+      if (l.price - cost < 500) lossMaking.push(l.slug); // margin fell under Rs. 500
     }
     await updateCostAndStock(updates);
     return NextResponse.json({ checked: linked.length, unavailable, lossMaking });
