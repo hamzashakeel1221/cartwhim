@@ -107,6 +107,7 @@ function HhcCard({ p, imported, onImported }: { p: HhcProduct; imported: Record<
   const stock = variation ? variation.quantity : p.quantity;
   const [price, setPrice] = useState(String(defaultPrice(cost, p.salePrice)));
   const [category, setCategory] = useState(categories[0].slug);
+  const [enhance, setEnhance] = useState(false);
   const [state, setState] = useState<{ busy?: boolean; error?: string }>({});
   const sku = variationId ? `${p.id}-v${variationId}` : String(p.id);
   const done = imported[sku];
@@ -117,7 +118,7 @@ function HhcCard({ p, imported, onImported }: { p: HhcProduct; imported: Record<
     const res = await fetch("/admin/api/hhc/import", {
       method: "POST",
       headers: { ...H, "content-type": "application/json" },
-      body: JSON.stringify({ id: p.id, variationId, category, price: Number(price), compareAt: Math.ceil((Number(price) * 1.35) / 50) * 50 }),
+      body: JSON.stringify({ id: p.id, variationId, category, price: Number(price), compareAt: Math.ceil((Number(price) * 1.35) / 50) * 50, enhance }),
     });
     const body = (await res.json().catch(() => ({}))) as Loose;
     if (!res.ok && !body.slug) { setState({ error: body.error ?? "Import failed" }); return; }
@@ -156,6 +157,10 @@ function HhcCard({ p, imported, onImported }: { p: HhcProduct; imported: Record<
                 </select>
               </label>
             </div>
+            <label className="flex items-center gap-2 text-xs text-stone-600">
+              <input type="checkbox" checked={enhance} onChange={(e) => setEnhance(e.target.checked)} />
+              Light photo touch-up (white square background, a bit brighter and sharper; product look unchanged)
+            </label>
             <p className={`text-xs ${profit > 0 ? "text-emerald-700" : "text-red-600"}`}>Margin before delivery: {formatPKR(profit)}</p>
             <button onClick={importIt} disabled={state.busy || profit <= 0} className="btn btn-primary w-full justify-center">{state.busy ? "Importing…" : "Import to CartWhim"}</button>
             {state.error && <p className="text-xs text-red-600">{state.error}</p>}

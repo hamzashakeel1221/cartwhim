@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { z } from "zod";
 import { guardAdmin } from "@/lib/admin-guard";
 import { categories } from "@/lib/catalog";
@@ -13,9 +14,30 @@ const schema = z.object({
   compareAt: z.number().int().min(0).max(10_000_000).nullable().optional(),
   name: z.string().trim().min(3).max(120).optional(),
   published: z.boolean().default(true),
+  enhance: z.boolean().default(false),
 });
 
 const MAX_PHOTO_BYTES = 1_800_000;
+
+// Optional light touch-up with Cloudflare Images: square white canvas, slightly brighter, a touch more contrast and
+// sharpness. It never crops, recolours or reshapes the product, so it still looks exactly like what the customer gets.
+async function touchUp(data: ArrayBuffer): Promise<{ data: ArrayBuffer; thumb: ArrayBuffer } | null> {
+  try {
+    const { env } = await getCloudflareContext({ async: true });
+    const run = async (size: number) => {
+      if (!env.IMAGES) throw new Error("No Images binding");
+      const out = await env.IMAGES.input(new Response(data).body!)
+        .transform({ width: size, height: size, fit: "pad", background: "#ffffff", brightness: 1.05, contrast: 1.05, sharpen: 1 })
+        .output({ format: "image/webp", quality: 85 });
+      return out.response().arrayBuffer();
+    };
+    const [big, small] = await Promise.all([run(1200), run(560)]);
+    return big.byteLength <= MAX_PHOTO_BYTES ? { data: big, thumb: small } : null;
+  } catch (e) {
+    console.warn("Photo touch-up failed, keeping the original", e);
+    return null;
+  }
+}
 
 export async function POST(req: Request) {
   const denied = guardAdmin(req);
@@ -68,7 +90,8 @@ export async function POST(req: Request) {
         if (data.byteLength > MAX_PHOTO_BYTES) continue;
         const mime = sniffImage(new Uint8Array(data));
         if (!mime) continue;
-        const added = await addPhoto(slug, mime, data, null);
+        const better = v.enhance ? await touchUp(data) : null;
+        const added = better ? await addPhoto(slug, "image/webp", better.data, better.thumb) : await addPhoto(slug, mime, data, null);
         if ("id" in added) photos++;
       } catch (e) {
         console.warn("Could not copy HHC photo", url, e);

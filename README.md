@@ -97,3 +97,6 @@ Imported products get HHC as their supplier and the HHC product id as their supp
 variation), so the Orders page shows exactly which HHC product to book. Press **Update stock & costs from HHC** daily:
 it refreshes cost and stock, sets stock to 0 for anything HHC no longer has, and warns you if HHC's cost has reached your
 price. Your prices are never changed automatically.
+
+Photos are HHC's own photos, copied as they are. Tick **Light photo touch-up** before importing to put each photo on a
+clean white square and make it slightly brighter and sharper. It never crops or changes how the product looks.
