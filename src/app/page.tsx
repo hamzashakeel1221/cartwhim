@@ -28,7 +28,7 @@ export default async function Home() {
   const trending = products.filter((p) => p.tags?.includes("trending"));
   const deals = [...products].sort((a, b) => (discountPercent(b.price, b.compareAt) ?? 0) - (discountPercent(a.price, a.compareAt) ?? 0)).slice(0, 8);
   const fresh = products.filter((p) => p.tags?.includes("new")).slice(0, 4);
-  const heroPicks = ["anc-wireless-earbuds", "digital-air-fryer-4l", "smart-watch-ultra"].map((s) => getProduct(s)!);
+  const heroPicks = ["tummy-trimmer-single-spring", "kids-lcd-writing-tablet-8-5", "digital-luggage-scale-50kg"].map((s) => getProduct(s)!);
 
   return (
     <>
@@ -137,8 +137,8 @@ export default async function Home() {
 
       {/* Promo tiles */}
       <section className="container-x mt-12 grid gap-3 sm:grid-cols-2 sm:gap-4">
-        <PromoTile href="/category/home-kitchen" kicker="Kitchen upgrades" title="Cook faster, clean easier" price="from Rs. 1,299" hue="from-amber-200 to-orange-300" icon="cooking-pot" />
-        <PromoTile href="/category/electronics" kicker="Gadgets under 3,500" title="Tech that fits your budget" price="from Rs. 899" hue="from-sky-200 to-indigo-300" icon="headphones" />
+        <PromoTile href="/category/home-kitchen" kicker="Kitchen upgrades" title="Organise your home" price="from Rs. 899" hue="from-amber-200 to-orange-300" icon="cooking-pot" />
+        <PromoTile href="/category/kids-toys" kicker="Kids learning" title="Screen-free learning toys" price="from Rs. 699" hue="from-lime-200 to-emerald-300" icon="baby" />
       </section>
 
       {/* New arrivals */}
@@ -180,9 +180,9 @@ export default async function Home() {
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Online shopping in Pakistan, the easy way</h2>
           <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-600">
             <p>
-              {store.name} is an online store for everyday finds: <Link className="font-semibold text-ink underline-offset-2 hover:underline" href="/category/electronics">wireless earbuds and smart watches</Link>,{" "}
-              <Link className="font-semibold text-ink underline-offset-2 hover:underline" href="/category/home-kitchen">air fryers and kitchen gadgets</Link>,{" "}
-              <Link className="font-semibold text-ink underline-offset-2 hover:underline" href="/category/fashion">handbags and watches</Link> and more.
+              {store.name} is an online store for everyday finds: <Link className="font-semibold text-ink underline-offset-2 hover:underline" href="/category/electronics">luggage scales and handy gadgets</Link>,{" "}
+              <Link className="font-semibold text-ink underline-offset-2 hover:underline" href="/category/home-kitchen">kitchen and home organisers</Link>,{" "}
+              <Link className="font-semibold text-ink underline-offset-2 hover:underline" href="/category/kids-toys">learning toys for kids</Link> and more.
             </p>
             <p>We deliver to Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar and 50+ cities with Cash on Delivery, so you only pay when your parcel is in your hands.</p>
           </div>

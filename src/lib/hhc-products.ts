@@ -19,6 +19,9 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "dumbbell",
     "images": [
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/29/13fdcac0d37e57198be89fc0dab02d00.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/29/2b5b0ad1a49847eb76db419396e9023a.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/29/af839d5ac8d9597a9329cb01f6e4fe5b.jpg",
       "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/29/0fd3f9ce47b5d58761ff8b275dbbc4bd.jpg"
     ],
     "description": "A heavy-duty spring tummy trimmer for home workouts. Work your abs, arms and legs without going to the gym.",
@@ -36,36 +39,6 @@ export const hhcProducts: Product[] = [
     "shipsFrom": "Lahore"
   },
   {
-    "slug": "posture-corrector-belt",
-    "name": "Posture Corrector Belt",
-    "category": "health-fitness",
-    "supplier": "hhc",
-    "supplierSku": "posture-belt-posture-corrector-belt-back-support-belt-back-pain-relief-shoulder-back-support-belt",
-    "cost": 477,
-    "price": 999,
-    "compareAt": 1799,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "sparkles",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/20/f14e05aaf2ed4005980927edde48b6c3.jpeg"
-    ],
-    "description": "An adjustable back and shoulder support belt that gently pulls your shoulders back while you sit, work or walk.",
-    "highlights": [
-      "Adjustable straps",
-      "Supports shoulders and upper back",
-      "Wear under or over clothes",
-      "For men and women"
-    ],
-    "tags": [
-      "trending",
-      "deal",
-      "new"
-    ],
-    "shipsFrom": "Karachi"
-  },
-  {
     "slug": "kids-lcd-writing-tablet-8-5",
     "name": "Kids LCD Writing Tablet 8.5 inch",
     "category": "kids-toys",
@@ -79,7 +52,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "pencil",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/15/aba14682878ad04daf2ff24c037eefe2.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/15/5fee686d2052676b9e76c5270dfa1737.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/15/aba14682878ad04daf2ff24c037eefe2.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/15/19763e7b01a70e10ecf8e6548a27ef2b.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/15/de461e53b24c8f1e45046f099a3d8337.jpeg"
     ],
     "description": "An 8.5 inch LCD drawing board that writes in colourful lines. Clear the screen with one button and start again. No paper, no mess.",
     "highlights": [
@@ -93,7 +69,8 @@ export const hhcProducts: Product[] = [
       "deal",
       "new"
     ],
-    "shipsFrom": "Lahore"
+    "shipsFrom": "Lahore",
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/15/b7d3ebd8852c8806ea46876d522f3e6f.mp4"
   },
   {
     "slug": "sank-magic-practice-books-4",
@@ -109,7 +86,12 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "pencil",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/WhatsApp-Image-2024-09-01-at-1.09.33-AM-1.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/10/WhatsApp-Image-2024-10-15-at-1.28.56-PM.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/WhatsApp-Image-2024-09-01-at-1.09.33-AM-1.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/01/WhatsApp-Image-2024-01-03-at-12.53.09-PM-1.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/01/WhatsApp-Image-2024-01-03-at-12.53.09-PM.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/01/WhatsApp-Image-2024-01-03-at-12.53.10-PM.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/5f00b8db-a6c9-49ec-bb3f-531b06c2313f-600x600-1.jpeg"
     ],
     "description": "Reusable tracing books that help kids practise letters, numbers and drawing. The ink fades away so they can practise again and again.",
     "highlights": [
@@ -139,6 +121,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "baby",
     "images": [
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/01/WhatsApp-Image-2025-01-13-at-11.56.30-AM.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/2c9e6036-05f1-4532-ad6f-36cee4b822a9.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/a473657c-8bcd-4a58-a06d-ef41803bc226.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/01/WhatsApp-Image-2025-01-13-at-11.56.32-AM.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/01/WhatsApp-Image-2025-01-13-at-11.56.31-AM.jpeg",
       "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/WhatsApp-Image-2024-03-25-at-3.48.31-AM.jpeg"
     ],
     "description": "Fill the pen with water and colours appear on the page. When it dries, the page turns white again. Mess-free fun for small kids.",
@@ -169,7 +156,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "baby",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/03/b2bf794ff94fcaf4355cd2273002beac.jpg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/03/b2bf794ff94fcaf4355cd2273002beac.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/03/fdec33508f0079a28e598a836effc8f4.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/03/2c75db732eecab44edf12a42d23b31f0.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/03/7ee887db9fc15f34c6be1e4d7ccc49cb.jpeg"
     ],
     "description": "A Montessori-style activity book with matching and sticking activities that keep young kids busy while they learn.",
     "highlights": [
@@ -182,7 +172,8 @@ export const hhcProducts: Product[] = [
       "trending",
       "deal",
       "new"
-    ]
+    ],
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/14/4007c6dab5006c7f6ed942a96c167cb3.mp4"
   },
   {
     "slug": "kids-projection-flashlight",
@@ -198,7 +189,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "lamp",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/19/a4cb19d9d2e3edf33feff3ea0d082a07.jpg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/19/b484734884c8ce5eccdd62c918e2d74c.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/19/a4cb19d9d2e3edf33feff3ea0d082a07.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/20/55afacc19e0d5dacf95aa25a1207f562.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/19/6632c56d5450e09a9111d2931234188a.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/19/00cbc7314e9c87461ef9ac72899cc026.jpg"
     ],
     "description": "A torch toy that projects pictures on the wall from its slides. A fun bedtime story light for kids.",
     "highlights": [
@@ -214,77 +209,23 @@ export const hhcProducts: Product[] = [
     ]
   },
   {
-    "slug": "pop-up-card-holder-wallet",
-    "name": "Pop-Up Card Holder Wallet (PU Leather)",
-    "category": "fashion",
-    "supplier": "hhc",
-    "supplierSku": "pu-leather-wallet-pop-up-card-holder-brownblack",
-    "cost": 369,
-    "price": 899,
-    "compareAt": 1699,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "wallet",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/17/9f861f9c7f185f0507256cff05c8bed2.jpg"
-    ],
-    "description": "A slim PU leather wallet with a pop-up card holder. Push the lever and your cards slide out.",
-    "highlights": [
-      "Pop-up card mechanism",
-      "Slim, fits a front pocket",
-      "PU leather",
-      "Brown or black"
-    ],
-    "tags": [
-      "trending",
-      "deal",
-      "new"
-    ]
-  },
-  {
-    "slug": "markhor-body-spray-delta",
-    "name": "Markhor Body Spray Delta 120ml",
-    "category": "beauty",
-    "supplier": "hhc",
-    "supplierSku": "markhor-body-spray-delta-long-lasting-fragrance-perfume-spray-for-men-non-gas-120ml",
-    "cost": 818,
-    "price": 1399,
-    "compareAt": 2599,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "spray-can",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/04/16/cdb5b8094fd21d6f3cc16449c8f5484f.jpeg"
-    ],
-    "description": "A long-lasting non-gas body spray for men in a 120ml bottle.",
-    "highlights": [
-      "120ml bottle",
-      "Non-gas spray",
-      "Long-lasting fragrance",
-      "For men"
-    ],
-    "tags": [
-      "deal",
-      "new"
-    ]
-  },
-  {
     "slug": "waterproof-bike-cover",
     "name": "Waterproof Bike Cover (70cc and 125cc)",
     "category": "home-kitchen",
     "supplier": "hhc",
     "supplierSku": "bike-cover-dust-amp-water-proof-universal-70-and-125-scratch-amp-rust-proof-cover-random-color",
-    "cost": 428,
-    "price": 999,
-    "compareAt": 1799,
+    "cost": 573,
+    "price": 1099,
+    "compareAt": 1999,
     "rating": 0,
     "reviews": 0,
     "stock": 20,
     "icon": "car",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/Untitled-25-1.jpg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/Untitled-25-1.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/04/472dc51da1e0f1192f748541102e13c4.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/04/9ffcc39930a02f45bf4fa12dac31440a.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/04/7c53e3d13eea8677ea494cfec37da799.jpg"
     ],
     "description": "A universal cover that keeps your 70cc or 125cc bike safe from rain, dust and scratches.",
     "highlights": [
@@ -313,7 +254,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "car",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/07/22/d5be612c8a9d5cf020ce89fbe82b0c71.jpg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/07/22/b48a72f79a3b8340d2da07fa04216b6d.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/07/22/d5be612c8a9d5cf020ce89fbe82b0c71.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/07/22/1ad23787d6b93e8890251df22107dd2d.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/07/22/8440436de1e70dab5be6f6989db58734.jpg"
     ],
     "description": "A compact hand air pump for bike and cycle tyres. Keep it with you for quick top-ups on the road.",
     "highlights": [
@@ -341,7 +285,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "utensils",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/10/WhatsApp-Image-2024-10-10-at-5.37.25-PM.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/10/WhatsApp-Image-2024-10-10-at-5.37.25-PM.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/WhatsApp-Image-2024-09-20-at-1.09.41-PM-1.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/WhatsApp-Image-2024-09-20-at-1.09.40-PM.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/WhatsApp-Image-2024-09-20-at-1.09.39-PM-1.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/09/WhatsApp-Image-2024-09-20-at-1.09.38-PM.jpeg"
     ],
     "description": "A digital kitchen scale that weighs from 1 gram up to 10 kg. Good for baking, cooking and small parcels.",
     "highlights": [
@@ -370,7 +318,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "smartphone",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/05/WhatsApp-Image-2024-05-20-at-5.52.24-PM.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/05/1-22.webp",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/05/2-21.webp",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/05/3-19.webp",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/05/4-11.webp",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/05/5-9.webp"
     ],
     "description": "Weigh your bags at home before you fly and avoid extra baggage charges. Hangs from the handle and shows the weight on a digital screen.",
     "highlights": [
@@ -399,7 +351,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "sparkles",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/06/ee4840f9eaf97ed2b428da0d239124bb.png"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/06/ee4840f9eaf97ed2b428da0d239124bb.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/06/bc3e2fc512149502e45fb1815792d9ef.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/06/9668078b8696d6d6da4b0617f9e0bf6c.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/06/c1f81792157630ca891c3969a88617ee.jpeg"
     ],
     "description": "A strong carbon steel corner rack that keeps shampoo, soap and toiletries organised in the bathroom or kitchen.",
     "highlights": [
@@ -428,7 +383,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "spray-can",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/11/401e72348d38eef031dc229dda9befe2.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/11/401e72348d38eef031dc229dda9befe2.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/11/18e77590019cd9e468cceb951bbcc271.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/11/40e32506d5938455267af35c151ade6f.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/11/5de6a3bb5474b22c9c2124c22c40d0a4.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/11/8ba57ef44cb75e923e4c82dceebb6570.jpeg"
     ],
     "description": "Lavender fragrance gel beads that keep rooms, bathrooms, offices and cars smelling fresh.",
     "highlights": [
@@ -444,105 +403,22 @@ export const hhcProducts: Product[] = [
     ]
   },
   {
-    "slug": "a9-mini-wifi-camera",
-    "name": "A9 Mini WiFi Camera 1080p",
-    "category": "electronics",
-    "supplier": "hhc",
-    "supplierSku": "a9-mini-wifi-camera-full-hd-1080p-portable-security-camera",
-    "cost": 1017,
-    "price": 1599,
-    "compareAt": 2899,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "smartphone",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2023/08/1-12.jpg"
-    ],
-    "description": "A tiny 1080p WiFi camera you can place anywhere and watch from your phone.",
-    "highlights": [
-      "Full HD 1080p",
-      "Watch live on your phone over WiFi",
-      "Very small and portable",
-      "For home or shop"
-    ],
-    "tags": [
-      "trending",
-      "deal",
-      "new"
-    ]
-  },
-  {
-    "slug": "cockroach-killer-gel",
-    "name": "SmartGel Cockroach Killer Gel 20g",
-    "category": "home-kitchen",
-    "supplier": "hhc",
-    "supplierSku": "smartgel-cockroach-killer-gel-20g-professional-strength-odorless-mess-free-solution-kills-within-72-hours-for-home-kitchen-use",
-    "cost": 466,
-    "price": 999,
-    "compareAt": 1799,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "spray-can",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/01/07/232cf5ff3b70d4c2effafda4fa01b864.jpeg"
-    ],
-    "description": "An odourless cockroach gel for kitchens and homes. Apply small dots in corners and cracks where cockroaches hide.",
-    "highlights": [
-      "20g syringe",
-      "Odourless and mess-free",
-      "For kitchen and home",
-      "Keep away from children and pets"
-    ],
-    "tags": [
-      "deal",
-      "new"
-    ]
-  },
-  {
-    "slug": "reusable-mouse-trap",
-    "name": "Reusable Plastic Mouse Trap",
-    "category": "home-kitchen",
-    "supplier": "hhc",
-    "supplierSku": "heavy-duty-reusable-plastic-mouse-trap-durable-safe-mouse-catcher-for-effective-rodent-control",
-    "cost": 196,
-    "price": 699,
-    "compareAt": 1299,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "sparkles",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/03/77267a5595f9c796d02235d53d404ddf.jpg"
-    ],
-    "description": "A heavy-duty plastic snap trap for mice that you can clean and use again.",
-    "highlights": [
-      "Reusable",
-      "Heavy-duty plastic",
-      "Easy to set",
-      "For home, kitchen and shop"
-    ],
-    "tags": [
-      "deal",
-      "new"
-    ]
-  },
-  {
     "slug": "knee-warmers-pair",
     "name": "Knee Warmers (1 Pair)",
     "category": "health-fitness",
     "supplier": "hhc",
     "supplierSku": "knee-warmers-for-comfort-protection-easy-wearing-and-daily-use-with-soft-material-and-reliable-design-1-pair",
-    "cost": 299,
-    "price": 799,
-    "compareAt": 1499,
+    "cost": 369,
+    "price": 899,
+    "compareAt": 1699,
     "rating": 0,
     "reviews": 0,
     "stock": 20,
     "icon": "sparkles",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/11/18/593c71928522c82675ed54866a4af173.png"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/11/18/593c71928522c82675ed54866a4af173.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/11/18/73d7aacc77d3196c3775c909943738b8.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/11/18/76e6a102747290a9f0f7edaff245f214.png"
     ],
     "description": "Soft knee warmers that keep your knees warm in winter. Easy to wear under clothes every day.",
     "highlights": [
@@ -555,7 +431,8 @@ export const hhcProducts: Product[] = [
       "trending",
       "deal",
       "new"
-    ]
+    ],
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/12/04/52962faae82bb587efbebb7216f60b02.mp4"
   },
   {
     "slug": "hair-colour-stick",
@@ -571,7 +448,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "sparkles",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/10/b974a5b61c7b342da9186dc82117b012.jpg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/10/b974a5b61c7b342da9186dc82117b012.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/10/7d5e5710609b47cc5bdced413d679179.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/10/6e9504e3e6ebf8a82b28f42ef148d94d.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/10/f33da49f31cbdf62ea35dea17d6511dd.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/12/a104c4eab1f2017f853ad84ebe868205.jpeg"
     ],
     "description": "A quick root touch-up stick that covers grey hair at the roots in seconds.",
     "highlights": [
@@ -584,7 +465,8 @@ export const hhcProducts: Product[] = [
       "trending",
       "deal",
       "new"
-    ]
+    ],
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/10/c3298769c7e813577545f8217bd5155d.mp4"
   },
   {
     "slug": "t9-hair-trimmer",
@@ -600,7 +482,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "scissors",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/02/28/fa301b9e9b53bf7d40c6bc94a2e876bc.webp"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/02/28/fa301b9e9b53bf7d40c6bc94a2e876bc.webp",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/02/28/ab7a2b94efd60c7ad78cd8c894f46177.webp",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/02/28/87cfeb775e6f293c0c975a4d958f3805.webp",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/03/02/57e2d310ef8a8b387d385e3371fdf234.jpg"
     ],
     "description": "The popular T9 trimmer with a gold dragon-design body, for beard lines, fades and detail work.",
     "highlights": [
@@ -613,7 +498,8 @@ export const hhcProducts: Product[] = [
       "trending",
       "deal",
       "new"
-    ]
+    ],
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/03/02/5a3848f15074670a2b812504f53999e2.mp4"
   },
   {
     "slug": "glass-salt-pepper-grinder",
@@ -629,7 +515,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "utensils",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/12/bac5163bd905bb4c5c411da80e337438.jpg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/12/bac5163bd905bb4c5c411da80e337438.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/14/78e44d2a3826f9378f373e90ad1e4ca4.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/14/25825f113e25009937359a25dfa84547.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/14/69ad8e71a63394c3858ee4709484607e.jpeg"
     ],
     "description": "A glass grinder for fresh black pepper, salt and spices at the table.",
     "highlights": [
@@ -657,7 +546,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "lamp",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/03/f4d6d26ab96a0127d8891d888344d6f8.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/03/f4d6d26ab96a0127d8891d888344d6f8.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/03/74eac05b5e5959b8f0149ef4ed4b63a2.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/03/f1b02e46fc206b5f76f58c90ced3cd1c.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/10/03/b67260b342c396ddcd07fafffbb33e29.png"
     ],
     "description": "A modern C-shaped side table that slides under your sofa or bed, so your laptop, tea or snacks are right in front of you.",
     "highlights": [
@@ -685,7 +577,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "glasses",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/20/ab9afaca8bdc5e71418c25d520f15faa.jpg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/20/ab9afaca8bdc5e71418c25d520f15faa.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/20/988b3f091495b63b7eaaa7a004e96a17.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/20/9b10c6c248873c10f860bbe6247e7747.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/20/175fde2d2e842c51b61b0401173f23c7.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/20/1855c367d587d926436224f7307f2e5f.jpg"
     ],
     "description": "A windproof and dustproof half face mask for bike and cycle riders. Keeps cold air and dust off your face.",
     "highlights": [
@@ -714,7 +610,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "dumbbell",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/04/27/937804a2fba1f0cea007cce20b159386.png"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/04/27/937804a2fba1f0cea007cce20b159386.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/04/27/1d40037af0c0434922550ee0290b32aa.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/04/27/3a8a6e2ae3982e679313588085d588cc.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/04/27/0061cca1388c58c70a2898d2a737d94c.png"
     ],
     "description": "A folding mini exercise bike you use while sitting. Pedal with your feet, or put it on a table to work your arms.",
     "highlights": [
@@ -726,7 +625,8 @@ export const hhcProducts: Product[] = [
     "tags": [
       "deal",
       "new"
-    ]
+    ],
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/04/27/b46a433fa3ce547a681eb423b498d29b.mp4"
   },
   {
     "slug": "ac-cover-1-5-ton",
@@ -742,7 +642,10 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "fan",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/16/51cfe600afdc210d798e08bb6424d361.jfif"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/16/51cfe600afdc210d798e08bb6424d361.jfif",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/16/b760d333c87499fbca67c9df40228129.jfif",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/16/c98f9bfc01d5c8d7d77a3f1107aa4594.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/09/16/150d2ef964f45ac833ed780aea20a109.jpg"
     ],
     "description": "A 2 piece set of waterproof parachute covers for split AC indoor and outdoor units, up to 1.5 ton. Keeps out dust and rain in winter.",
     "highlights": [
@@ -770,7 +673,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "sparkles",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/06/13/2e9a23ce647a63259f44527bb9e7d21e.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/06/13/2e9a23ce647a63259f44527bb9e7d21e.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/06/13/f45e69b9b8b489f2c228770052f5e403.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/06/13/b0abd18d85c4902b9035f47bf62b5b75.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/06/13/5593e0bfc853c028f048f6aa1320b9d6.jpeg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/23/e2af7509c0cc56ce544508c9f4bbe5b1.webp"
     ],
     "description": "An elegant tulip-design bracelet for women in gold-tone stainless steel. Comes without a box.",
     "highlights": [
@@ -782,121 +689,8 @@ export const hhcProducts: Product[] = [
     "tags": [
       "deal",
       "new"
-    ]
-  },
-  {
-    "slug": "solar-panel-cleaning-brush-head",
-    "name": "Solar Panel Cleaning Brush (Head Only)",
-    "category": "home-kitchen",
-    "supplier": "hhc",
-    "supplierSku": "solar-panel-brush-head-only-best-quality-brush-for-cleaning-solar-panel-random-color",
-    "cost": 1665,
-    "price": 2199,
-    "compareAt": 3999,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "sparkles",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/05/13/ed25ce1aebd9218b6c223048898cac1a.png"
     ],
-    "description": "A soft brush head for cleaning dust off solar panels. Clean panels make more electricity. Fits on your own pole (pole not included).",
-    "highlights": [
-      "Brush head only, pole not included",
-      "Soft bristles for panels",
-      "Removes dust and dirt",
-      "Colour sent at random"
-    ],
-    "tags": [
-      "trending",
-      "deal",
-      "new"
-    ]
-  },
-  {
-    "slug": "mystic-sage-perfume-tester",
-    "name": "Mystic Sage Perfume Tester 5ml",
-    "category": "beauty",
-    "supplier": "hhc",
-    "supplierSku": "mystic-sage-perfume-tester-glass-spray-vial-5ml",
-    "cost": 369,
-    "price": 899,
-    "compareAt": 1699,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "spray-can",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/27/dc912514882881c4c7934b07825bca2f.webp"
-    ],
-    "description": "A 5ml glass spray vial of Mystic Sage perfume. Small enough to keep in your pocket or bag.",
-    "highlights": [
-      "5ml glass spray vial",
-      "Pocket size",
-      "Try a fragrance before a full bottle",
-      "Good as a gift"
-    ],
-    "tags": [
-      "deal",
-      "new"
-    ]
-  },
-  {
-    "slug": "leaf-garland-fairy-lights",
-    "name": "Leaf Garland with LED Fairy Lights (7 ft)",
-    "category": "home-kitchen",
-    "supplier": "hhc",
-    "supplierSku": "artificial-plant-leaves-bail-with-7-ft-led-fairy-lights-battery-operated-and-7-ft-bail-leaf-lights-for-room-decoration-wall-hanging-flowers",
-    "cost": 321,
-    "price": 899,
-    "compareAt": 1699,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "lamp",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/11/24/c72301e32f57722c5091d9a09a53ffa0.jpg"
-    ],
-    "description": "A 7 ft artificial leaf garland with battery-operated LED fairy lights for decorating rooms, walls and events.",
-    "highlights": [
-      "7 ft garland",
-      "Battery-operated LED lights",
-      "For rooms, walls and events",
-      "No wiring needed"
-    ],
-    "tags": [
-      "trending",
-      "deal",
-      "new"
-    ]
-  },
-  {
-    "slug": "compact-diy-tool-kit",
-    "name": "Compact DIY Hand Tool Kit",
-    "category": "electronics",
-    "supplier": "hhc",
-    "supplierSku": "tool-kit-2-disassemblers-5-allen-keys-compact-hand-toolkit-for-diy-repairs",
-    "cost": 423,
-    "price": 999,
-    "compareAt": 1799,
-    "rating": 0,
-    "reviews": 0,
-    "stock": 20,
-    "icon": "scissors",
-    "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2025/09/Copilot_20250904_010241.png"
-    ],
-    "description": "A compact hand tool kit with 2 opening tools and 5 Allen keys for small repairs at home.",
-    "highlights": [
-      "2 opening tools",
-      "5 Allen keys",
-      "Compact case",
-      "For small DIY repairs"
-    ],
-    "tags": [
-      "deal",
-      "new"
-    ]
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/06/15/ce2262a615b7946033ff9ec714edd804.mp4"
   },
   {
     "slug": "24-cell-drawer-organizer",
@@ -912,7 +706,11 @@ export const hhcProducts: Product[] = [
     "stock": 20,
     "icon": "shopping-bag",
     "images": [
-      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/06/WhatsApp-Image-2024-05-31-at-5.53.41-PM.jpeg"
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2024/06/41a5c1c438b36acac4eb40b84dc7026f.jpg",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2022/11/1.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2022/11/2.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2022/11/3.png",
+      "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2022/11/6.png"
     ],
     "description": "A collapsible 24-cell organizer that keeps socks, underwear and small items neat in drawers and cupboards.",
     "highlights": [
@@ -924,6 +722,7 @@ export const hhcProducts: Product[] = [
     "tags": [
       "deal",
       "new"
-    ]
+    ],
+    "video": "https://hhcnewapp.blr1.cdn.digitaloceanspaces.com/uploads/2026/08/18/f8a654411ad48041db2b82d2a14ae53c.mp4"
   }
 ];

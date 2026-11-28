@@ -9,7 +9,7 @@ export function ProductArt({ product, size = "md", priority }: { product: Produc
   if (img) {
     return (
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-zinc-100">
-        <Image src={img} alt={product.name} fill priority={priority} unoptimized={img.startsWith("/api/photo/")} sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
+        <Image src={img} alt={product.name} fill priority={priority} unoptimized={img.startsWith("/api/photo/")} quality={90} sizes="(max-width: 768px) 50vw, 25vw" className="photo-enhance object-cover" />
       </div>
     );
   }
